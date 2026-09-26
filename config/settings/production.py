@@ -1,4 +1,5 @@
 import environ
+import dj_database_url
 
 from .base import *
 
@@ -19,8 +20,8 @@ CSRF_TRUSTED_ORIGINS = env.list(
 )
 
 DATABASES = {
-    "default": env.db(
-        "DATABASE_URL"
+    "default": dj_database_url.config(
+        conn_max_age=600,
     )
 }
 
