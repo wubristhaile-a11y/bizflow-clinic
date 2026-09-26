@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+
+{% block title %}Patients | BizFlow Clinic{% endblock %}
+
+{% block topbar_title %}
+    Patients
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+        <div class="page-eyebrow">CLINICAL</div>
+
+        <h1 class="page-title">
+            Patient Workstation
+        </h1>
+
+        <p class="page-subtitle">
+            Search and manage registered patients.
+        </p>
+    </div>
+
+    <div class="page-actions">
+        <span class="bf-status-badge">
+            {{ patients|length }} patient{{ patients|length|pluralize }}
+        </span>
+    </div>
+
+</div>
+
+
+<!-- Search -->
+
+<div class="bf-card mb-4">
+
+    <div class="bf-card-body">
+
+        <form method="get">
+
+            <div class="row g-3 align-items-end">
+
+                <div class="col-md-9">
+
+                    <label for="patient-search" class="form-label">
+                        Search patients
+                    </label>
+
+                    <input
+                        type="text"
+                        id="patient-search"
+                        name="q"
+                        value="{{ query }}"
+                        class="form-control"
+                        placeholder="Search by patient name, patient ID, or phone..."
+                    >
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary w-100"
+                    >
+                        Search
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- Patient Table -->
+
+<div class="bf-card">
+
+    <div class="bf-card-header">
+
+        <div>
+
+            <h2 class="bf-card-title">
+                Registered Patients
+            </h2>
+
+            <p class="bf-card-subtitle">
+                Patient records currently registered in BizFlow.
+            </p>
+
+        </div>
+
+        <span class="text-muted small">
+            {{ patients|length }} patient{{ patients|length|pluralize }}
+        </span>
+
+    </div>
+
+
+    <div class="table-responsive">
+
+        {% if patients %}
+
+            <table class="table bf-table mb-0">
+
+                <thead>
+
+                    <tr>
+
+                        <th class="ps-4">
+                            Patient ID
+                        </th>
+
+                        <th>
+                            Patient
+                        </th>
+
+                        <th>
+                            Age
+                        </th>
+
+                        <th>
+                            Sex
+                        </th>
+
+                        <th>
+                            Phone
+                        </th>
+
+                        <th class="text-end pe-4">
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for patient in patients %}
+
+                    <tr>
+
+                        <td class="ps-4">
+
+                            <span class="patient-id">
+                                {{ patient.patient_id }}
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="patient-cell">
+
+                                <div class="patient-avatar">
+                                    {{ patient.full_name|first|upper }}
+                                </div>
+
+                                <div>
+
+                                    <a
+                                        href="{% url 'patients:detail' patient.id %}"
+                                        class="patient-name"
+                                    >
+                                        {{ patient.full_name }}
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            {{ patient.age }}
+                        </td>
+
+
+                        <td>
+
+                            {% if patient.sex == "M" %}
+                                Male
+                            {% elif patient.sex == "F" %}
+                                Female
+                            {% else %}
+                                Other
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            {% if patient.phone %}
+                                {{ patient.phone }}
+                            {% else %}
+                                <span class="text-muted">—</span>
+                            {% endif %}
+
+                        </td>
+
+
+                        <td class="text-end pe-4">
+
+                            <a
+                                href="{% url 'patients:detail' patient.id %}"
+                                class="btn btn-sm btn-outline-primary"
+                            >
+                                Open Patient
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        {% else %}
+
+            <div class="bf-empty-state">
+
+                <div class="bf-empty-icon">
+                    🔎
+                </div>
+
+                <h3>
+                    No patients found
+                </h3>
+
+                <p>
+                    Try another patient name, ID, or phone number.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

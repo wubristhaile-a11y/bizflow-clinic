@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}Staff Sign In | BizFlow Clinic{% endblock %}
+
+{% block topbar_title %}Staff Sign In{% endblock %}
+
+{% block content %}
+
+<div class="login-page">
+
+    <div class="login-card">
+
+        <div class="login-brand">
+            <div class="login-logo">BF</div>
+
+            <div>
+                <div class="login-brand-name">BIZFLOW</div>
+                <div class="login-brand-subtitle">CLINIC MANAGEMENT</div>
+            </div>
+        </div>
+
+        <div class="login-heading">
+            <h1>Welcome back</h1>
+
+            {% if requested_department %}
+                <p>
+                    Sign in to access the
+                    <strong>
+                        {% if requested_department == "reception" %}
+                            Reception
+                        {% elif requested_department == "triage" %}
+                            Triage
+                        {% elif requested_department == "doctor" %}
+                            Doctor
+                        {% elif requested_department == "laboratory" %}
+                            Laboratory
+                        {% elif requested_department == "imaging" %}
+                            Imaging
+                        {% elif requested_department == "pharmacy" %}
+                            Pharmacy
+                        {% elif requested_department == "billing" %}
+                            Billing
+                        {% elif requested_department == "admin" %}
+                            Administration
+                        {% else %}
+                            {{ requested_department|title }}
+                        {% endif %}
+                    </strong>
+                    workspace.
+                </p>
+            {% else %}
+                <p>Sign in to access your department workspace.</p>
+            {% endif %}
+        </div>
+
+        {% if requested_department %}
+            <div class="login-department">
+                <span class="login-department-label">Signing in for</span>
+
+                <span class="login-department-name">
+                    {% if requested_department == "reception" %}
+                        Reception
+                    {% elif requested_department == "triage" %}
+                        Triage
+                    {% elif requested_department == "doctor" %}
+                        Doctor
+                    {% elif requested_department == "laboratory" %}
+                        Laboratory
+                    {% elif requested_department == "imaging" %}
+                        Imaging
+                    {% elif requested_department == "pharmacy" %}
+                        Pharmacy
+                    {% elif requested_department == "billing" %}
+                        Billing
+                    {% elif requested_department == "admin" %}
+                        Administration
+                    {% else %}
+                        {{ requested_department|title }}
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+
+        {% if messages %}
+            <div class="login-messages">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags|default:'info' }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="post" class="login-form">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="username">Username</label>
+
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    class="form-control"
+                    placeholder="Enter your username"
+                    autocomplete="username"
+                    required
+                    autofocus
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="form-control"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="login-button">
+                Sign In
+            </button>
+        </form>
+
+        <div class="login-footer">
+            <a href="{% url 'clinic_home' %}">
+                ← Back to clinic
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+
+{% block title %}Reception | BizFlow Clinic{% endblock %}
+
+{% block topbar_title %}Reception{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <div class="page-eyebrow">
+                BIZFLOW CLINIC
+            </div>
+
+            <h1 class="mb-1">
+                Reception
+            </h1>
+
+            <p class="text-muted mb-0">
+                Register patients and manage today's visits.
+            </p>
+        </div>
+
+        <a
+            href="{% url 'patients:create' %}"
+            class="btn btn-primary"
+        >
+            + Register Patient
+        </a>
+
+    </div>
+
+
+    <!-- Quick actions -->
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-4">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body p-4">
+
+                    <div class="text-muted small mb-2">
+                        PATIENTS
+                    </div>
+
+                    <h2 class="mb-1">
+                        {{ patient_count }}
+                    </h2>
+
+                    <p class="text-muted mb-0">
+                        Registered patients
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body p-4">
+
+                    <div class="text-muted small mb-2">
+                        TODAY
+                    </div>
+
+                    <h2 class="mb-1">
+                        {{ today_encounters }}
+                    </h2>
+
+                    <p class="text-muted mb-0">
+                        Patient visits
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body p-4">
+
+                    <div class="text-muted small mb-2">
+                        WAITING
+                    </div>
+
+                    <h2 class="mb-1">
+                        {{ waiting_count }}
+                    </h2>
+
+                    <p class="text-muted mb-0">
+                        Open encounters
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Recent encounters -->
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body p-0">
+
+            <div class="p-4 border-bottom">
+
+                <h2 class="h5 mb-1">
+                    Recent Patient Visits
+                </h2>
+
+                <p class="text-muted mb-0">
+                    Patients currently moving through the clinic.
+                </p>
+
+            </div>
+
+
+            {% if encounters %}
+
+                <div class="table-responsive">
+
+                    <table class="table align-middle mb-0">
+
+                        <thead>
+
+                            <tr>
+                                <th class="px-4">Patient</th>
+                                <th>Patient ID</th>
+                                <th>Visit Reason</th>
+                                <th>Status</th>
+                                <th class="text-end px-4">
+                                    Action
+                                </th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for encounter in encounters %}
+
+                                <tr>
+
+                                    <td class="px-4">
+
+                                        <strong>
+                                            {{ encounter.patient.full_name }}
+                                        </strong>
+
+                                    </td>
+
+                                    <td>
+                                        {{ encounter.patient.patient_id }}
+                                    </td>
+
+                                    <td>
+                                        {{ encounter.visit_reason|default:"—" }}
+                                    </td>
+
+                                    <td>
+
+                                        <span class="badge
+                                            {% if encounter.status == 'OPEN' %}
+                                                bg-warning text-dark
+                                            {% elif encounter.status == 'IN_PROGRESS' %}
+                                                bg-info text-dark
+                                            {% elif encounter.status == 'COMPLETED' %}
+                                                bg-success
+                                            {% else %}
+                                                bg-secondary
+                                            {% endif %}
+                                        ">
+                                            {{ encounter.get_status_display }}
+                                        </span>
+
+                                    </td>
+
+                                    <td class="text-end px-4">
+
+                                        <a
+                                            href="{% url 'encounters:detail' encounter.id %}"
+                                            class="btn btn-sm btn-outline-secondary"
+                                        >
+                                            Open
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="p-5 text-center">
+
+                    <h3 class="h5">
+                        No patient visits yet
+                    </h3>
+
+                    <p class="text-muted mb-4">
+                        Register your first patient to begin the workflow.
+                    </p>
+
+                    <a
+                        href="{% url 'patients:create' %}"
+                        class="btn btn-primary"
+                    >
+                        Register Patient
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

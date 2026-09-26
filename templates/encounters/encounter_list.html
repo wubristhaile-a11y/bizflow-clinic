@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %}Encounters | BizFlow Clinic{% endblock %}
+
+{% block topbar_title %}
+Encounters
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="mb-1">Encounters</h2>
+            <p class="text-muted mb-0">
+                Patient visits and clinical encounters
+            </p>
+        </div>
+
+        <a
+            href="{% url 'patients:list' %}"
+            class="btn btn-primary"
+        >
+            Find Patient
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+
+        <div class="card-header bg-white">
+            <strong>Recent Encounters</strong>
+        </div>
+
+        <div class="card-body p-0">
+
+            {% if encounters %}
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover mb-0">
+
+                        <thead>
+                            <tr>
+                                <th>Encounter</th>
+                                <th>Patient</th>
+                                <th>Visit Reason</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for encounter in encounters %}
+
+                                <tr>
+
+                                    <td>
+                                        <strong>
+                                            {{ encounter.encounter_id }}
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        <strong>
+                                            {{ encounter.patient.full_name }}
+                                        </strong>
+                                        <br>
+                                        <small class="text-muted">
+                                            {{ encounter.patient.patient_id }}
+                                        </small>
+                                    </td>
+
+                                    <td>
+                                        {% if encounter.visit_reason %}
+                                            {{ encounter.visit_reason|truncatechars:50 }}
+                                        {% else %}
+                                            <span class="text-muted">
+                                                Not specified
+                                            </span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        {% if encounter.status == "OPEN" %}
+                                            <span class="badge bg-warning text-dark">
+                                                Open
+                                            </span>
+
+                                        {% elif encounter.status == "IN_PROGRESS" %}
+                                            <span class="badge bg-primary">
+                                                In Progress
+                                            </span>
+
+                                        {% elif encounter.status == "COMPLETED" %}
+                                            <span class="badge bg-success">
+                                                Completed
+                                            </span>
+
+                                        {% elif encounter.status == "CANCELLED" %}
+                                            <span class="badge bg-danger">
+                                                Cancelled
+                                            </span>
+
+                                        {% else %}
+                                            <span class="badge bg-secondary">
+                                                {{ encounter.status }}
+                                            </span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        {{ encounter.created_at|date:"M d, Y H:i" }}
+                                    </td>
+
+                                    <td class="text-end">
+                                        <a
+                                            href="{% url 'encounters:detail' encounter.id %}"
+                                            class="btn btn-sm btn-outline-primary"
+                                        >
+                                            Open
+                                        </a>
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="text-center py-5">
+
+                    <h5>No encounters yet</h5>
+
+                    <p class="text-muted">
+                        Patient encounters will appear here.
+                    </p>
+
+                    <a
+                        href="{% url 'patients:list' %}"
+                        class="btn btn-primary"
+                    >
+                        Find Patient
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

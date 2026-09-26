@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome | BizFlow Clinic{% endblock %}
+
+{% block topbar_title %}Welcome{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-5">
+
+            <h1 class="mb-2">
+                Welcome, {{ request.user.get_full_name|default:request.user.username }}
+            </h1>
+
+            <p class="text-muted mb-4">
+                You are successfully signed in to BizFlow Clinic.
+            </p>
+
+            <div class="alert alert-success">
+                Authentication is working successfully.
+            </div>
+
+            <p class="mb-0">
+                Your department workspace will be loaded here next.
+            </p>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

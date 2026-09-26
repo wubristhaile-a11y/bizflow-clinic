@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block title %}Pharmacy | BizFlow Clinic{% endblock %}
+
+{% block topbar_title %}Pharmacy{% endblock %}
+
+{% block content %}
+
+<div class="department-workspace">
+
+    <div class="workspace-header">
+        <div>
+            <div class="workspace-eyebrow">PHARMACY DEPARTMENT</div>
+
+            <h1>Pharmacy Workspace</h1>
+
+            <p>
+                Review prescriptions, dispense medication, and maintain
+                accurate stock records.
+            </p>
+        </div>
+
+        <div class="workspace-user">
+            <div class="workspace-user-label">Signed in as</div>
+            <strong>{{ request.user.get_full_name|default:request.user.username }}</strong>
+        </div>
+    </div>
+
+
+    <div class="workspace-summary">
+
+        <div class="workspace-stat">
+            <span class="workspace-stat-label">Ready for dispensing</span>
+            <strong>{{ prescriptions|length }}</strong>
+        </div>
+
+        <div class="workspace-stat">
+            <span class="workspace-stat-label">Department</span>
+            <strong>Pharmacy</strong>
+        </div>
+
+        <div class="workspace-stat">
+            <span class="workspace-stat-label">Workflow</span>
+            <strong>Prescription → Dispense</strong>
+        </div>
+
+    </div>
+
+
+    <div class="workspace-panel">
+
+        <div class="panel-header">
+            <div>
+                <h2>Prescriptions Ready</h2>
+                <p>Finalized prescriptions waiting for pharmacy action.</p>
+            </div>
+        </div>
+
+
+        {% if prescriptions %}
+
+            <div class="table-responsive">
+
+                <table class="table workspace-table align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>Prescription</th>
+                            <th>Patient</th>
+                            <th>Doctor</th>
+                            <th>Medication</th>
+                            <th>Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for prescription in prescriptions %}
+
+                            <tr>
+
+                                <td>
+                                    <strong>
+                                        {{ prescription.prescription_id }}
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    <strong>
+                                        {{ prescription.patient.full_name }}
+                                    </strong>
+
+                                    <div class="table-subtext">
+                                        {{ prescription.patient.patient_id }}
+                                    </div>
+                                </td>
+
+                                <td>
+                                    {{ prescription.prescribed_by.get_full_name|default:prescription.prescribed_by.username }}
+                                </td>
+
+                                <td>
+                                    {% for item in prescription.items.all %}
+                                        <div>
+                                            {{ item.medication }}
+                                            <span class="text-muted">
+                                                × {{ item.quantity }}
+                                            </span>
+                                        </div>
+                                    {% endfor %}
+                                </td>
+
+                                <td>
+                                    {{ prescription.created_at|date:"d M Y" }}
+                                </td>
+
+                                <td class="text-end">
+
+                                    <span class="status-badge status-ready">
+                                        Ready
+                                    </span>
+
+                                    <a
+                                        href="{% url 'pharmacy:prescription_detail' prescription.id %}"
+                                        class="btn btn-sm btn-primary ms-2"
+                                    >
+                                        Open
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-workspace">
+
+                <div class="empty-workspace-icon">
+                    ✓
+                </div>
+
+                <h3>No prescriptions waiting</h3>
+
+                <p>
+                    The pharmacy queue is currently clear.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>
+    Triage | {{ patient.full_name }} | BizFlow Clinic
+</title>
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+>
+```
+
+</head>
+
+<body class="bg-light">
+
+<div class="container py-4">
+
+```
+<!-- Back -->
+
+<div class="mb-3">
+    <a
+        href="{% url 'encounters:detail' encounter.id %}"
+        class="text-decoration-none"
+    >
+        ← Back to Encounter
+    </a>
+</div>
+
+
+<!-- Patient / Encounter Header -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+    <div class="card-body p-4">
+
+        <div class="d-flex justify-content-between align-items-start">
+
+            <div>
+
+                <div class="text-muted small mb-1">
+                    PATIENT
+                </div>
+
+                <h2 class="fw-bold mb-1">
+                    {{ patient.full_name }}
+                </h2>
+
+                <div class="text-muted">
+                    {{ patient.patient_id }}
+                </div>
+
+            </div>
+
+            <div class="text-end">
+
+                <div class="text-muted small">
+                    Encounter
+                </div>
+
+                <div class="fw-semibold">
+                    {{ encounter.encounter_id }}
+                </div>
+
+                <span class="badge bg-primary mt-1">
+                    {{ encounter.get_status_display }}
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Triage Card -->
+
+<div class="card border-0 shadow-sm">
+
+    <div class="card-body p-4">
+
+        <div class="mb-4">
+
+            <h3 class="fw-bold mb-1">
+                Triage
+            </h3>
+
+            <p class="text-muted mb-0">
+                Record the patient's vital signs and measurements.
+            </p>
+
+        </div>
+
+
+        <!-- Messages -->
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div
+                    class="alert alert-{{ message.tags|default:'info' }}"
+                    role="alert"
+                >
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+        <form method="post">
+
+            {% csrf_token %}
+
+
+            <!-- Vital Signs -->
+
+            <h5 class="fw-bold mb-3">
+                Vital Signs
+            </h5>
+
+            <div class="row g-3 mb-4">
+
+
+                <!-- Systolic BP -->
+
+                <div class="col-md-6">
+
+                    <label
+                        for="systolic_bp"
+                        class="form-label fw-semibold"
+                    >
+                        Systolic BP
+                    </label>
+
+                    <div class="input-group">
+
+                        <input
+                            type="number"
+                            name="systolic_bp"
+                            id="systolic_bp"
+                            class="form-control"
+                            min="0"
+                            value="{{ triage.systolic_bp|default:'' }}"
+                            placeholder="120"
+                        >
+
+                        <span class="input-group-text">
+                            mmHg
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Diastolic BP -->
+
+                <div class="col-md-6">
+
+                    <label
+                        for="diastolic_bp"
+                        class="form-label fw-semibold"
+                    >
+                        Diastolic BP
+                    </label>
+
+                    <div class="input-group">
+
+                        <input
+                            type="number"
+                            name="diastolic_bp"
+                            id="diastolic_bp"
+                            class="form-control"
+                            min="0"
+                            value="{{ triage.diastolic_bp|default:'' }}"
+                            placeholder="80"
+                        >
+
+                        <span class="input-group-text">
+                            mmHg
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Temperature -->
+
+                <div class="col-md-6">
+
+                    <label
+                        for="temperature"
+                        class="form-label fw-semibold"
+                    >
+                        Temperature
+                    </label>
+
+                    <div class="input-group">
+
+                        <input
+                            type="number"
+                            name="temperature"
+                            id="temperature"
+                            class="form-control"
+                            step="0.1"
+                            min="0"
+                            value="{{ triage.temperature|default:'' }}"
+                            placeholder="37.0"
+                        >
+
+                        <span class="input-group-text">
+                            °C
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Pulse -->
+
+                <div class="col-md-6">
+
+                    <label
+                        for="pulse"
+                        class="form-label fw-semibold"
+                    >
+                        Pulse
+                    </label>
+
+                    <div class="input-group">
+
+                        <input
+                            type="number"
+                            name="pulse"
+                            id="pulse"
+                            class="form-control"
+                            min="0"
+                            value="{{ triage.pulse|default:'' }}"
+                            placeholder="72"
+                        >
+
+                        <span class="input-group-text">
+                            bpm
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Weight -->
+
+                <div class="col-md-6">
+
+                    <label
+                        for="weight"
+                        class="form-label fw-semibold"
+                    >
+                        Weight
+                    </label>
+
+                    <div class="input-group">
+
+                        <input
+                            type="number"
+                            name="weight"
+                            id="weight"
+                            class="form-control"
+                            step="0.01"
+                            min="0"
+                            value="{{ triage.weight|default:'' }}"
+                            placeholder="56.00"
+                        >
+
+                        <span class="input-group-text">
+                            kg
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Blood Sugar -->
+
+                <div class="col-md-6">
+
+                    <label
+                        for="blood_sugar"
+                        class="form-label fw-semibold"
+                    >
+                        Blood Sugar
+                    </label>
+
+                    <div class="input-group">
+
+                        <input
+                            type="number"
+                            name="blood_sugar"
+                            id="blood_sugar"
+                            class="form-control"
+                            step="0.01"
+                            min="0"
+                            value="{{ triage.blood_sugar|default:'' }}"
+                            placeholder="96.00"
+                        >
+
+                        <span class="input-group-text">
+                            mg/dL
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Notes -->
+
+            <h5 class="fw-bold mb-3">
+                Triage Notes
+            </h5>
+
+            <div class="mb-4">
+
+                <textarea
+                    name="notes"
+                    id="notes"
+                    class="form-control"
+                    rows="4"
+                    placeholder="Additional observations or notes..."
+                >{{ triage.notes|default:'' }}</textarea>
+
+            </div>
+
+
+            <!-- Actions -->
+
+            <div class="d-flex justify-content-end gap-2">
+
+                <a
+                    href="{% url 'encounters:detail' encounter.id %}"
+                    class="btn btn-outline-secondary"
+                >
+                    Cancel
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary px-4"
+                >
+                    {% if triage %}
+                        Update Triage
+                    {% else %}
+                        Save Triage
+                    {% endif %}
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+</div>
+
+</body>
+</html>

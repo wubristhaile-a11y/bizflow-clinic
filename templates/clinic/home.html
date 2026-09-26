@@ -1,0 +1,357 @@
+{% extends "base.html" %}
+
+{% block title %}BizFlow Clinic{% endblock %}
+
+{% block topbar_title %}
+    BizFlow Clinic
+{% endblock %}
+
+{% block content %}
+
+<div class="clinic-home">
+
+    <!-- Hero -->
+
+    <section class="clinic-hero">
+
+        <div class="clinic-hero-content">
+
+            <div class="clinic-eyebrow">
+                BIZFLOW CLINIC
+            </div>
+
+            <h1>
+                Connected care.
+                <br>
+                One patient record.
+            </h1>
+
+            <p>
+                A paperless clinical workflow connecting reception,
+                triage, doctors, laboratory, pharmacy, billing and
+                every department involved in patient care.
+            </p>
+
+            <div class="clinic-hero-actions">
+
+                <a href="{% url 'accounts:login' %}" class="btn btn-primary btn-lg">
+                    Staff Sign In
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="clinic-hero-visual">
+
+            <div class="clinic-image-placeholder">
+
+                <div class="clinic-image-overlay">
+
+                    <span>CONNECTED CLINIC</span>
+
+                    <strong>
+                        Information moves.
+                        <br>
+                        Patients don't.
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Departments -->
+
+    <section class="clinic-departments">
+
+        <div class="clinic-section-heading">
+
+            <div>
+                <div class="page-eyebrow">
+                    CLINICAL WORKFLOW
+                </div>
+
+                <h2>
+                    Every department, connected.
+                </h2>
+            </div>
+
+            <p>
+                Each team gets its own workspace while working
+                from the same patient record.
+            </p>
+
+        </div>
+
+
+        <div class="department-grid">
+
+
+            <!-- Reception -->
+
+            <a href="{% url 'accounts:login' %}?department=reception"
+               class="department-card">
+
+                <div class="department-icon">
+                    R
+                </div>
+
+                <div class="department-content">
+
+                    <h3>Reception</h3>
+
+                    <p>
+                        Register patients, manage encounters
+                        and handle front-desk payments.
+                    </p>
+
+                </div>
+
+                <span class="department-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- Triage -->
+
+            <a href="{% url 'accounts:login' %}?department=triage"
+               class="department-card">
+
+                <div class="department-icon">
+                    T
+                </div>
+
+                <div class="department-content">
+
+                    <h3>Triage</h3>
+
+                    <p>
+                        Record vital signs and prepare patients
+                        for clinical consultation.
+                    </p>
+
+                </div>
+
+                <span class="department-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- Doctor -->
+
+            <a href="{% url 'accounts:login' %}?department=doctor"
+               class="department-card">
+
+                <div class="department-icon">
+                    D
+                </div>
+
+                <div class="department-content">
+
+                    <h3>Doctor</h3>
+
+                    <p>
+                        Consult patients, diagnose conditions,
+                        order investigations and prescribe medication.
+                    </p>
+
+                </div>
+
+                <span class="department-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- Laboratory -->
+
+            <a href="{% url 'accounts:login' %}?department=laboratory"
+               class="department-card">
+
+                <div class="department-icon">
+                    L
+                </div>
+
+                <div class="department-content">
+
+                    <h3>Laboratory</h3>
+
+                    <p>
+                        Receive investigation orders, process tests
+                        and return results to doctors.
+                    </p>
+
+                </div>
+
+                <span class="department-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- Imaging -->
+
+            <a href="{% url 'accounts:login' %}?department=imaging"
+               class="department-card">
+
+                <div class="department-icon">
+                    I
+                </div>
+
+                <div class="department-content">
+
+                    <h3>Imaging</h3>
+
+                    <p>
+                        Manage imaging requests, examinations
+                        and diagnostic reports.
+                    </p>
+
+                </div>
+
+                <span class="department-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- Pharmacy -->
+
+            <a href="{% url 'accounts:login' %}?department=pharmacy"
+               class="department-card">
+
+                <div class="department-icon">
+                    P
+                </div>
+
+                <div class="department-content">
+
+                    <h3>Pharmacy</h3>
+
+                    <p>
+                        Dispense prescriptions and manage
+                        medication inventory.
+                    </p>
+
+                </div>
+
+                <span class="department-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- Billing -->
+
+            <a href="{% url 'accounts:login' %}?department=billing"
+               class="department-card">
+
+                <div class="department-icon">
+                    B
+                </div>
+
+                <div class="department-content">
+
+                    <h3>Billing</h3>
+
+                    <p>
+                        Manage invoices, payments and
+                        financial transactions.
+                    </p>
+
+                </div>
+
+                <span class="department-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- Administration -->
+
+            <a href="{% url 'accounts:login' %}?department=admin"
+               class="department-card">
+
+                <div class="department-icon">
+                    A
+                </div>
+
+                <div class="department-content">
+
+                    <h3>Administration</h3>
+
+                    <p>
+                        Manage users, departments, services,
+                        settings and clinic operations.
+                    </p>
+
+                </div>
+
+                <span class="department-arrow">
+                    →
+                </span>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- Workflow statement -->
+
+    <section class="clinic-workflow">
+
+        <div>
+
+            <div class="page-eyebrow">
+                BIZFLOW PRINCIPLE
+            </div>
+
+            <h2>
+                The patient shouldn't carry information.
+            </h2>
+
+            <p>
+                When a doctor orders a laboratory test, the laboratory
+                receives it. When the result is completed, the doctor
+                receives it. When medication is prescribed, the pharmacy
+                receives the prescription.
+            </p>
+
+        </div>
+
+        <div class="workflow-chain">
+
+            <span>Reception</span>
+            <b>→</b>
+            <span>Triage</span>
+            <b>→</b>
+            <span>Doctor</span>
+            <b>→</b>
+            <span>Laboratory</span>
+            <b>→</b>
+            <span>Pharmacy</span>
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

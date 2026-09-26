@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block title %}Consultation Queue | BizFlow Clinic{% endblock %}
+
+{% block topbar_title %}
+Doctor Consultation Queue
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="mb-4">
+        <h2 class="mb-1">Consultation Queue</h2>
+        <p class="text-muted mb-0">
+            Patients ready for doctor consultation.
+        </p>
+    </div>
+
+
+    <div class="card shadow-sm">
+
+        <div class="card-header bg-white">
+            <strong>Patients Waiting for Doctor</strong>
+        </div>
+
+        <div class="card-body p-0">
+
+            {% if encounters %}
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover mb-0">
+
+                        <thead>
+                            <tr>
+                                <th>Encounter</th>
+                                <th>Patient</th>
+                                <th>Triage</th>
+                                <th>Visit Reason</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for encounter in encounters %}
+
+                                <tr>
+
+                                    <td>
+                                        <strong>
+                                            {{ encounter.encounter_id }}
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        <strong>
+                                            {{ encounter.patient.full_name }}
+                                        </strong>
+                                        <br>
+                                        <small class="text-muted">
+                                            {{ encounter.patient.patient_id }}
+                                        </small>
+                                    </td>
+
+                                    <td>
+                                        {% if encounter.triage %}
+                                            <span class="badge bg-success">
+                                                Recorded
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-warning text-dark">
+                                                Pending
+                                            </span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        {% if encounter.visit_reason %}
+                                            {{ encounter.visit_reason|truncatechars:45 }}
+                                        {% else %}
+                                            <span class="text-muted">
+                                                Not specified
+                                            </span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        {% if encounter.status == "OPEN" %}
+                                            <span class="badge bg-warning text-dark">
+                                                Open
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-primary">
+                                                In Progress
+                                            </span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td class="text-end">
+
+                                        {% if encounter.consultation %}
+
+                                            <a
+                                                href="{% url 'consultations:detail' encounter.consultation.id %}"
+                                                class="btn btn-sm btn-primary"
+                                            >
+                                                Open Consultation
+                                            </a>
+
+                                        {% else %}
+
+                                            <form
+                                                method="post"
+                                                action="{% url 'consultations:start_consultation' encounter.id %}"
+                                                class="d-inline"
+                                            >
+                                                {% csrf_token %}
+
+                                                <button
+                                                    type="submit"
+                                                    class="btn btn-sm btn-primary"
+                                                >
+                                                    Start Consultation
+                                                </button>
+
+                                            </form>
+
+                                        {% endif %}
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="text-center py-5">
+
+                    <h5>No patients waiting</h5>
+
+                    <p class="text-muted mb-0">
+                        Patients will appear here after registration.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

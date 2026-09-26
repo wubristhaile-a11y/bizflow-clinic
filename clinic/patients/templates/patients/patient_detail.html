@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{{ patient.full_name }} | BizFlow Clinic</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+</head>
+
+
+<body class="bg-light">
+
+<div class="container py-5">
+
+    <!-- Back -->
+
+    <div class="mb-4">
+
+        <a
+            href="{% url 'patients:list' %}"
+            class="text-decoration-none"
+        >
+            ← Back to Patients
+        </a>
+
+    </div>
+
+
+    <!-- Patient Header -->
+
+    <div class="card border-0 shadow-sm mb-4">
+
+    ```
+    <div class="card-body p-4">
+
+        <div class="d-flex align-items-center justify-content-between">
+
+            <!-- Patient identity -->
+
+            <div class="d-flex align-items-center">
+
+                <div
+                    class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3"
+                    style="width: 64px; height: 64px; font-size: 24px;"
+                >
+                    {{ patient.full_name|first|upper }}
+                </div>
+
+                <div>
+
+                    <h2 class="fw-bold mb-1">
+                        {{ patient.full_name }}
+                    </h2>
+
+                    <div class="text-muted">
+
+                        {{ patient.patient_id }}
+
+                        ·
+
+                        {% if patient.sex == "M" %}
+                            Male
+                        {% elif patient.sex == "F" %}
+                            Female
+                        {% else %}
+                            Other
+                        {% endif %}
+
+                        ·
+
+                        Age {{ patient.age }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- New Encounter -->
+
+            <div>
+
+                <a
+                    href="{% url 'encounters:create' patient.id %}"
+                    class="btn btn-primary"
+                >
+                    + New Encounter
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+  
+
+
+    <div class="row g-4">
+
+        <!-- Patient Information -->
+
+        <div class="col-lg-4">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-header bg-white py-3">
+
+                    <h5 class="mb-0 fw-semibold">
+                        Patient Information
+                    </h5>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    <div class="mb-3">
+
+                        <div class="text-muted small">
+                            Full Name
+                        </div>
+
+                        <div class="fw-semibold">
+                            {{ patient.full_name }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <div class="text-muted small">
+                            Patient ID
+                        </div>
+
+                        <div class="fw-semibold">
+                            {{ patient.patient_id }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <div class="text-muted small">
+                            Age
+                        </div>
+
+                        <div>
+                            {{ patient.age }} years
+                        </div>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <div class="text-muted small">
+                            Sex
+                        </div>
+
+                        <div>
+                            {% if patient.sex == "M" %}
+                                Male
+                            {% elif patient.sex == "F" %}
+                                Female
+                            {% else %}
+                                Other
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <div class="text-muted small">
+                            Phone
+                        </div>
+
+                        <div>
+                            {% if patient.phone %}
+                                {{ patient.phone }}
+                            {% else %}
+                                —
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="text-muted small">
+                            Address
+                        </div>
+
+                        <div>
+                            {% if patient.address %}
+                                {{ patient.address }}
+                            {% else %}
+                                —
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Clinical History -->
+
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-header bg-white py-3">
+
+                    <h5 class="mb-0 fw-semibold">
+                        🩺 Clinical History
+                    </h5>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    {% if encounters %}
+
+                        {% for encounter in encounters %}
+
+                            <div class="border rounded-3 p-4 mb-4">
+
+                                <!-- Encounter Header -->
+
+                                <div class="d-flex justify-content-between align-items-start">
+
+                                    <div>
+
+                                        <h5 class="fw-semibold mb-1">
+                                            Encounter {{ encounter.encounter_id }}
+                                        </h5>
+
+                                        <small class="text-muted">
+                                            {{ encounter.created_at|date:"M d, Y H:i" }}
+                                        </small>
+
+                                    </div>
+
+
+                                    <span class="badge bg-light text-dark">
+                                        {{ encounter.get_status_display }}
+                                    </span>
+
+                                </div>
+
+
+                                <hr>
+
+
+                                <!-- Visit Reason -->
+
+                                {% if encounter.visit_reason %}
+
+                                    <div class="mb-4">
+
+                                        <h6 class="fw-semibold">
+                                            Visit Reason
+                                        </h6>
+
+                                        <p class="mb-0 text-muted">
+                                            {{ encounter.visit_reason }}
+                                        </p>
+
+                                    </div>
+
+                                {% endif %}
+
+
+                                <!-- TRIAGE -->
+
+                                {% if encounter.triage %}
+
+                                    <div class="mb-4">
+
+                                        <h6 class="fw-semibold mb-3">
+                                            🩺 Triage
+                                        </h6>
+
+
+                                        <div class="row g-3">
+
+                                            <div class="col-md-4">
+
+                                                <div class="border rounded p-3">
+
+                                                    <div class="text-muted small">
+                                                        Blood Pressure
+                                                    </div>
+
+                                                    <div class="fw-semibold">
+
+                                                        {% if encounter.triage.systolic_bp %}
+                                                            {{ encounter.triage.systolic_bp }}/{{ encounter.triage.diastolic_bp }}
+                                                        {% else %}
+                                                            —
+                                                        {% endif %}
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="col-md-4">
+
+                                                <div class="border rounded p-3">
+
+                                                    <div class="text-muted small">
+                                                        Temperature
+                                                    </div>
+
+                                                    <div class="fw-semibold">
+
+                                                        {% if encounter.triage.temperature %}
+                                                            {{ encounter.triage.temperature }} °C
+                                                        {% else %}
+                                                            —
+                                                        {% endif %}
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="col-md-4">
+
+                                                <div class="border rounded p-3">
+
+                                                    <div class="text-muted small">
+                                                        Pulse
+                                                    </div>
+
+                                                    <div class="fw-semibold">
+
+                                                        {% if encounter.triage.pulse %}
+                                                            {{ encounter.triage.pulse }} bpm
+                                                        {% else %}
+                                                            —
+                                                        {% endif %}
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="col-md-4">
+
+                                                <div class="border rounded p-3">
+
+                                                    <div class="text-muted small">
+                                                        Weight
+                                                    </div>
+
+                                                    <div class="fw-semibold">
+
+                                                        {% if encounter.triage.weight %}
+                                                            {{ encounter.triage.weight }} kg
+                                                        {% else %}
+                                                            —
+                                                        {% endif %}
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="col-md-4">
+
+                                                <div class="border rounded p-3">
+
+                                                    <div class="text-muted small">
+                                                        Blood Sugar
+                                                    </div>
+
+                                                    <div class="fw-semibold">
+
+                                                        {% if encounter.triage.blood_sugar %}
+                                                            {{ encounter.triage.blood_sugar }} mg/dL
+                                                        {% else %}
+                                                            —
+                                                        {% endif %}
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                {% endif %}
+
+
+                                <!-- CONSULTATION -->
+
+                                {% if encounter.consultation %}
+
+                                    <div class="mb-4">
+
+                                        <h6 class="fw-semibold mb-3">
+                                            👨‍⚕️ Consultation
+                                        </h6>
+
+
+                                        <div class="border rounded p-3">
+
+                                            {% if encounter.consultation.chief_complaint %}
+
+                                                <div class="mb-3">
+
+                                                    <div class="text-muted small">
+                                                        Chief Complaint
+                                                    </div>
+
+                                                    <div>
+                                                        {{ encounter.consultation.chief_complaint }}
+                                                    </div>
+
+                                                </div>
+
+                                            {% endif %}
+
+
+                                            {% if encounter.consultation.history_of_present_illness %}
+
+                                                <div class="mb-3">
+
+                                                    <div class="text-muted small">
+                                                        History of Present Illness
+                                                    </div>
+
+                                                    <div>
+                                                        {{ encounter.consultation.history_of_present_illness }}
+                                                    </div>
+
+                                                </div>
+
+                                            {% endif %}
+
+
+                                            {% if encounter.consultation.medical_history %}
+
+                                                <div class="mb-3">
+
+                                                    <div class="text-muted small">
+                                                        Medical History
+                                                    </div>
+
+                                                    <div>
+                                                        {{ encounter.consultation.medical_history }}
+                                                    </div>
+
+                                                </div>
+
+                                            {% endif %}
+
+
+                                            {% if encounter.consultation.physical_examination %}
+
+                                                <div class="mb-3">
+
+                                                    <div class="text-muted small">
+                                                        Physical Examination
+                                                    </div>
+
+                                                    <div>
+                                                        {{ encounter.consultation.physical_examination }}
+                                                    </div>
+
+                                                </div>
+
+                                            {% endif %}
+
+
+                                            {% if encounter.consultation.assessment %}
+
+                                                <div class="mb-3">
+
+                                                    <div class="text-muted small">
+                                                        Assessment
+                                                    </div>
+
+                                                    <div>
+                                                        {{ encounter.consultation.assessment }}
+                                                    </div>
+
+                                                </div>
+
+                                            {% endif %}
+
+
+                                            {% if encounter.consultation.diagnosis %}
+
+                                                <div class="mb-3">
+
+                                                    <div class="text-muted small">
+                                                        Diagnosis
+                                                    </div>
+
+                                                    <div class="fw-semibold">
+                                                        {{ encounter.consultation.diagnosis }}
+                                                    </div>
+
+                                                </div>
+
+                                            {% endif %}
+
+
+                                            {% if encounter.consultation.treatment_plan %}
+
+                                                <div>
+
+                                                    <div class="text-muted small">
+                                                        Treatment Plan
+                                                    </div>
+
+                                                    <div>
+                                                        {{ encounter.consultation.treatment_plan }}
+                                                    </div>
+
+                                                </div>
+
+                                            {% endif %}
+
+                                        </div>
+
+                                    </div>
+
+                                {% endif %}
+
+
+                                <!-- INVESTIGATIONS -->
+
+                                <div>
+
+                                    <h6 class="fw-semibold mb-3">
+                                        🔬 Investigations
+                                    </h6>
+
+
+                                    {% for order in encounter.clinical_orders.all %}
+
+                                        <div class="border rounded p-3 mb-2">
+
+                                            <div class="d-flex justify-content-between align-items-start">
+
+                                                <div>
+
+                                                    <div class="fw-semibold">
+                                                        {{ order.service.name }}
+                                                    </div>
+
+                                                    <small class="text-muted">
+                                                        {{ order.order_id }}
+                                                        ·
+                                                        {{ order.service.department.name }}
+                                                    </small>
+
+                                                </div>
+
+
+                                                <span class="badge bg-light text-dark">
+
+                                                    {{ order.get_status_display }}
+
+                                                </span>
+
+                                            </div>
+
+
+                                            {% if order.clinical_notes %}
+
+                                                <div class="mt-2">
+
+                                                    <div class="text-muted small">
+                                                        Clinical Notes
+                                                    </div>
+
+                                                    <div>
+                                                        {{ order.clinical_notes }}
+                                                    </div>
+
+                                                </div>
+
+                                            {% endif %}
+
+
+                                            {% if order.lab_result %}
+
+                                                <div class="mt-3 p-3 bg-light rounded">
+
+                                                    <div class="d-flex justify-content-between">
+
+                                                        <strong>
+                                                            Laboratory Result
+                                                        </strong>
+
+                                                        {% if order.lab_result.status == "REVIEWED" %}
+
+                                                            <span class="badge bg-success">
+                                                                ✓ Doctor Reviewed
+                                                            </span>
+
+                                                        {% elif order.lab_result.status == "COMPLETED" %}
+
+                                                            <span class="badge bg-warning text-dark">
+                                                                Result Available
+                                                            </span>
+
+                                                        {% endif %}
+
+                                                    </div>
+
+
+                                                    <div class="mt-2">
+
+                                                        {{ order.lab_result.result }}
+
+                                                    </div>
+
+
+                                                    {% if order.lab_result.notes %}
+
+                                                        <div class="mt-2 text-muted small">
+
+                                                            <strong>
+                                                                Lab Notes:
+                                                            </strong>
+
+                                                            {{ order.lab_result.notes }}
+
+                                                        </div>
+
+                                                    {% endif %}
+
+                                                </div>
+
+                                            {% endif %}
+
+                                        </div>
+
+
+                                    {% empty %}
+
+                                        <div class="text-muted">
+                                            No investigations ordered.
+                                        </div>
+
+                                    {% endfor %}
+
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <div class="text-center py-5">
+
+                            <div class="display-5 mb-3">
+                                📋
+                            </div>
+
+                            <h5 class="fw-semibold">
+                                No clinical history yet
+                            </h5>
+
+                            <p class="text-muted mb-0">
+                                This patient has no recorded encounters.
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

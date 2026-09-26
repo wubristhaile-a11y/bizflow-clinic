@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>Enter Laboratory Result - BizFlow Clinic</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        body {
+            background: #f4f6f9;
+        }
+
+        .page-header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .brand-badge {
+            letter-spacing: 0.3px;
+        }
+
+        .info-card {
+            border: none;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .info-card .card-header {
+            background: white;
+            border-bottom: 1px solid #e9ecef;
+            padding: 1rem 1.25rem;
+        }
+
+        .patient-name {
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        .patient-id {
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #6c757d;
+            margin-bottom: 3px;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: #212529;
+        }
+
+        .result-card {
+            border: none;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .result-card .card-header {
+            background: #fff;
+            border-bottom: 1px solid #e9ecef;
+            padding: 1rem 1.25rem;
+        }
+
+        .result-title {
+            font-weight: 700;
+        }
+
+        textarea.form-control {
+            border-radius: 10px;
+            border: 1px solid #ced4da;
+            padding: 0.85rem;
+            resize: vertical;
+        }
+
+        textarea.form-control:focus {
+            border-color: #86b7fe;
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.1);
+        }
+
+        .result-area {
+            min-height: 220px;
+        }
+
+        .notes-area {
+            min-height: 120px;
+        }
+
+        .warning-box {
+            border-radius: 10px;
+            border: 1px solid #ffe69c;
+            background: #fff8db;
+        }
+
+        .status-pill {
+            font-size: 0.8rem;
+            padding: 0.45rem 0.7rem;
+            border-radius: 999px;
+        }
+
+        .action-bar {
+            background: white;
+            border-top: 1px solid #e9ecef;
+            padding: 1rem 1.25rem;
+        }
+
+        .btn {
+            border-radius: 8px;
+        }
+
+        .section-icon {
+            font-size: 1.1rem;
+        }
+
+        .clinical-notes {
+            white-space: pre-wrap;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 0.85rem;
+            min-height: 50px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ========================================================= -->
+<!-- HEADER -->
+<!-- ========================================================= -->
+
+<header class="page-header">
+
+    <div class="container-fluid px-4 py-3">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <div>
+
+                <div class="d-flex align-items-center gap-2">
+
+                    <span class="section-icon">
+                        🧪
+                    </span>
+
+                    <h4 class="mb-0 fw-bold">
+                        Laboratory
+                    </h4>
+
+                </div>
+
+                <small class="text-muted">
+                    Laboratory Workstation
+                </small>
+
+            </div>
+
+
+            <div class="d-flex align-items-center gap-3">
+
+                <span class="badge bg-dark brand-badge px-3 py-2">
+                    BizFlow Clinic
+                </span>
+
+                <a
+                    href="{% url 'laboratory:queue' %}"
+                    class="btn btn-outline-secondary btn-sm"
+                >
+                    ← Laboratory Queue
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- ========================================================= -->
+<!-- MAIN -->
+<!-- ========================================================= -->
+
+<main class="container-fluid px-4 py-4">
+
+
+    <!-- ===================================================== -->
+    <!-- PAGE TITLE -->
+    <!-- ===================================================== -->
+
+    <div class="mb-4">
+
+        <h2 class="fw-bold mb-1">
+            Enter Laboratory Result
+        </h2>
+
+        <p class="text-muted mb-0">
+            Record and complete the laboratory findings for this order.
+        </p>
+
+    </div>
+
+
+
+    <!-- ===================================================== -->
+    <!-- DJANGO MESSAGES -->
+    <!-- ===================================================== -->
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div
+                class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show"
+                role="alert"
+            >
+
+                {{ message }}
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                ></button>
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+
+    <div class="row g-4">
+
+
+        <!-- ================================================= -->
+        <!-- LEFT COLUMN -->
+        <!-- ================================================= -->
+
+        <div class="col-xl-5">
+
+
+            <!-- ============================================= -->
+            <!-- PATIENT CARD -->
+            <!-- ============================================= -->
+
+            <div class="card shadow-sm info-card mb-4">
+
+                <div class="card-header">
+
+                    <div class="d-flex align-items-center gap-2">
+
+                        <span>
+                            👤
+                        </span>
+
+                        <span class="fw-bold">
+                            Patient Information
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-body p-4">
+
+
+                    <div class="mb-4">
+
+                        <div class="patient-name">
+                            {{ order.encounter.patient.full_name }}
+                        </div>
+
+                        <div class="patient-id text-muted mt-1">
+                            {{ order.encounter.patient.patient_id }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="row g-3">
+
+
+                        <div class="col-6">
+
+                            <div class="info-label">
+                                Patient ID
+                            </div>
+
+                            <div class="info-value">
+                                {{ order.encounter.patient.patient_id }}
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-6">
+
+                            <div class="info-label">
+                                Sex
+                            </div>
+
+                            <div class="info-value">
+                                {{ order.encounter.patient.get_sex_display }}
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-6">
+
+                            <div class="info-label">
+                                Age
+                            </div>
+
+                            <div class="info-value">
+                                {{ order.encounter.patient.age }} years
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-6">
+
+                            <div class="info-label">
+                                Phone
+                            </div>
+
+                            <div class="info-value">
+
+                                {% if order.encounter.patient.phone %}
+
+                                    {{ order.encounter.patient.phone }}
+
+                                {% else %}
+
+                                    <span class="text-muted">
+                                        Not provided
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ============================================= -->
+            <!-- ORDER CARD -->
+            <!-- ============================================= -->
+
+            <div class="card shadow-sm info-card mb-4">
+
+                <div class="card-header">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div class="d-flex align-items-center gap-2">
+
+                            <span>
+                                🧾
+                            </span>
+
+                            <span class="fw-bold">
+                                Investigation Order
+                            </span>
+
+                        </div>
+
+
+                        <span class="badge bg-primary status-pill">
+
+                            {{ order.get_status_display }}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-body p-4">
+
+
+                    <div class="mb-3">
+
+                        <div class="info-label">
+                            Order Number
+                        </div>
+
+                        <div class="info-value font-monospace">
+                            {{ order.order_id }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <div class="info-label">
+                            Laboratory Test
+                        </div>
+
+                        <div class="fs-5 fw-bold">
+                            {{ order.service.name }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="row g-3">
+
+
+                        <div class="col-md-6">
+
+                            <div class="info-label">
+                                Department
+                            </div>
+
+                            <div class="info-value">
+                                {{ order.service.department.name }}
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <div class="info-label">
+                                Ordered By
+                            </div>
+
+                            <div class="info-value">
+                                {{ order.ordered_by }}
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-12">
+
+                            <div class="info-label">
+                                Ordered At
+                            </div>
+
+                            <div class="info-value">
+
+                                {{ order.ordered_at|date:"M d, Y H:i" }}
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    {% if order.clinical_notes %}
+
+                        <hr class="my-4">
+
+                        <div class="info-label mb-2">
+                            Clinical Notes / Reason
+                        </div>
+
+                        <div class="clinical-notes">
+                            {{ order.clinical_notes }}
+                        </div>
+
+                    {% endif %}
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ============================================= -->
+            <!-- WORKFLOW REMINDER -->
+            <!-- ============================================= -->
+
+            <div class="card border-0 shadow-sm info-card">
+
+                <div class="card-body p-4">
+
+                    <div class="fw-bold mb-3">
+                        🔄 Laboratory Workflow
+                    </div>
+
+
+                    <div class="d-flex align-items-center mb-2">
+
+                        <span class="badge bg-secondary me-2">
+                            1
+                        </span>
+
+                        <span>
+                            Order paid
+                        </span>
+
+                    </div>
+
+
+                    <div class="d-flex align-items-center mb-2">
+
+                        <span class="badge bg-primary me-2">
+                            2
+                        </span>
+
+                        <span class="fw-semibold">
+                            Laboratory work in progress
+                        </span>
+
+                    </div>
+
+
+                    <div class="d-flex align-items-center mb-2">
+
+                        <span class="badge bg-success me-2">
+                            3
+                        </span>
+
+                        <span>
+                            Result becomes available
+                        </span>
+
+                    </div>
+
+
+                    <div class="d-flex align-items-center">
+
+                        <span class="badge bg-dark me-2">
+                            4
+                        </span>
+
+                        <span>
+                            Ordering doctor reviews result
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ================================================= -->
+        <!-- RIGHT COLUMN -->
+        <!-- ================================================= -->
+
+        <div class="col-xl-7">
+
+
+            <!-- ============================================= -->
+            <!-- RESULT CARD -->
+            <!-- ============================================= -->
+
+            <div class="card shadow-sm result-card">
+
+
+                <div class="card-header">
+
+                    <div>
+
+                        <div class="result-title fs-5">
+
+                            🔬 Laboratory Findings
+
+                        </div>
+
+                        <small class="text-muted">
+
+                            Enter the findings exactly as verified by
+                            the laboratory.
+
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="card-body p-4">
+
+
+                    {% if form.non_field_errors %}
+
+                        <div class="alert alert-danger">
+
+                            {{ form.non_field_errors }}
+
+                        </div>
+
+                    {% endif %}
+
+
+
+                    <form
+                        method="post"
+                        novalidate
+                    >
+
+                        {% csrf_token %}
+
+
+
+                        <!-- ================================= -->
+                        <!-- RESULT -->
+                        <!-- ================================= -->
+
+                        <div class="mb-4">
+
+
+                            <label
+                                for="{{ form.result.id_for_label }}"
+                                class="form-label fw-semibold"
+                            >
+
+                                Laboratory Result
+
+                                <span class="text-danger">
+                                    *
+                                </span>
+
+                            </label>
+
+
+                            <div class="text-muted small mb-2">
+
+                                Include the relevant findings,
+                                measurements, units, and observations.
+
+                            </div>
+
+
+                            {{ form.result }}
+
+
+                            {% if form.result.errors %}
+
+                                <div class="text-danger small mt-2">
+
+                                    {{ form.result.errors }}
+
+                                </div>
+
+                            {% endif %}
+
+
+                        </div>
+
+
+
+                        <!-- ================================= -->
+                        <!-- NOTES -->
+                        <!-- ================================= -->
+
+                        <div class="mb-4">
+
+
+                            <label
+                                for="{{ form.notes.id_for_label }}"
+                                class="form-label fw-semibold"
+                            >
+
+                                Laboratory Notes
+
+                            </label>
+
+
+                            <div class="text-muted small mb-2">
+
+                                Optional comments, specimen notes,
+                                limitations, or other relevant information.
+
+                            </div>
+
+
+                            {{ form.notes }}
+
+
+                            {% if form.notes.errors %}
+
+                                <div class="text-danger small mt-2">
+
+                                    {{ form.notes.errors }}
+
+                                </div>
+
+                            {% endif %}
+
+
+                        </div>
+
+
+
+                        <!-- ================================= -->
+                        <!-- WARNING -->
+                        <!-- ================================= -->
+
+                        <div class="warning-box p-3 mb-4">
+
+                            <div class="d-flex gap-3">
+
+                                <div class="fs-4">
+                                    ⚠️
+                                </div>
+
+                                <div>
+
+                                    <div class="fw-bold mb-1">
+                                        Verify before completing
+                                    </div>
+
+                                    <div class="small">
+
+                                        Please make sure the laboratory
+                                        findings are accurate before
+                                        submitting. Once completed, the
+                                        result will become available to
+                                        the ordering doctor.
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- ================================= -->
+                        <!-- ACTIONS -->
+                        <!-- ================================= -->
+
+                        <div class="action-bar mx-n4 mb-n4">
+
+                            <div class="d-flex justify-content-between align-items-center">
+
+
+                                <a
+                                    href="{% url 'laboratory:queue' %}"
+                                    class="btn btn-outline-secondary"
+                                >
+
+                                    ← Cancel
+
+                                </a>
+
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-success px-4"
+                                >
+
+                                    ✓ Complete Result
+
+                                </button>
+
+
+                            </div>
+
+                        </div>
+
+
+                    </form>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+
+<!-- ========================================================= -->
+<!-- BOOTSTRAP -->
+<!-- ========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+></script>
+
+
+</body>
+
+</html>
