@@ -1,6 +1,7 @@
 from pathlib import Path
+import os
 import environ
-
+import dj_database_url
 
 # ---------------------------------------------------------
 # BASE DIRECTORY
@@ -121,16 +122,25 @@ ASGI_APPLICATION = "config.asgi.application"
 # DATABASE
 # ---------------------------------------------------------
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("DB_NAME"),
-        "USER": env("DB_USER"),
-        "PASSWORD": env("DB_PASSWORD"),
-        "HOST": env("DB_HOST", default="127.0.0.1"),
-        "PORT": env("DB_PORT", default="5432"),
+# Local development uses DB_* variables from .env.
+# Production uses Render's DATABASE_URL.
+if os.environ.get("DATABASE_URL"):
+    DATABASES = {
+        "default": dj_database_url.config(
+            conn_max_age=600,
+        )
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": env("DB_NAME"),
+            "USER": env("DB_USER"),
+            "PASSWORD": env("DB_PASSWORD"),
+            "HOST": env("DB_HOST", default="127.0.0.1"),
+            "PORT": env("DB_PORT", default="5432"),
+        }
+    }
 
 
 # ---------------------------------------------------------
