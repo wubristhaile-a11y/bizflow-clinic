@@ -1,0 +1,105 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+    <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#6d3b8e"/>
+            <stop offset="52%" stop-color="#8a4fa5"/>
+            <stop offset="100%" stop-color="#241b42"/>
+        </linearGradient>
+
+        <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity=".22"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity=".05"/>
+        </linearGradient>
+    </defs>
+
+    <rect width="1200" height="600" fill="url(#bg)"/>
+
+    <circle cx="1050" cy="100" r="230" fill="#ffffff" opacity=".035"/>
+    <circle cx="980" cy="530" r="260" fill="#ffffff" opacity=".025"/>
+
+    <!-- school building -->
+    <path d="M625 215 L830 100 L1035 215 Z"
+          fill="#ffffff" opacity=".17"/>
+
+    <rect x="660" y="215" width="340" height="245" rx="8"
+          fill="#ffffff" opacity=".13"/>
+
+    <!-- columns -->
+    <g fill="#ffffff" opacity=".30">
+        <rect x="700" y="255" width="38" height="160" rx="4"/>
+        <rect x="770" y="255" width="38" height="160" rx="4"/>
+        <rect x="840" y="255" width="38" height="160" rx="4"/>
+        <rect x="910" y="255" width="38" height="160" rx="4"/>
+    </g>
+
+    <!-- central entrance -->
+    <rect x="790" y="345" width="80" height="115" rx="7"
+          fill="#ffffff" opacity=".18"/>
+
+    <!-- graduation cap -->
+    <polygon points="350,155 480,105 610,155 480,205"
+             fill="#ffffff" opacity=".35"/>
+
+    <path d="M400 175 L400 220
+             C445 250 515 250 560 220
+             L560 175"
+          fill="none"
+          stroke="#ffffff"
+          stroke-width="10"
+          stroke-opacity=".28"/>
+
+    <line x1="610" y1="155" x2="610" y2="225"
+          stroke="#ffffff"
+          stroke-width="5"
+          stroke-opacity=".4"/>
+
+    <circle cx="610" cy="232" r="11"
+            fill="#ffffff"
+            opacity=".45"/>
+
+    <!-- student -->
+    <circle cx="330" cy="330" r="46"
+            fill="#ffffff"
+            opacity=".14"/>
+
+    <circle cx="330" cy="315" r="21"
+            fill="#ffffff"
+            opacity=".60"/>
+
+    <path d="M275 430
+             C280 370 300 350 330 350
+             C360 350 380 370 385 430
+             Z"
+          fill="#ffffff"
+          opacity=".30"/>
+
+    <!-- book -->
+    <path d="M170 385
+             L260 365
+             L260 475
+             L170 450 Z"
+          fill="url(#glass)"/>
+
+    <path d="M260 365
+             L350 385
+             L350 450
+             L260 475 Z"
+          fill="#ffffff"
+          opacity=".12"/>
+
+    <line x1="260" y1="365" x2="260" y2="475"
+          stroke="#ffffff"
+          stroke-width="4"
+          stroke-opacity=".30"/>
+
+    <!-- technology nodes -->
+    <circle cx="105" cy="120" r="8" fill="#ffffff" opacity=".45"/>
+    <circle cx="160" cy="90" r="5" fill="#ffffff" opacity=".25"/>
+    <circle cx="210" cy="125" r="7" fill="#ffffff" opacity=".35"/>
+
+    <path d="M105 120 L160 90 L210 125"
+          fill="none"
+          stroke="#ffffff"
+          stroke-opacity=".18"
+          stroke-width="2"/>
+</svg>

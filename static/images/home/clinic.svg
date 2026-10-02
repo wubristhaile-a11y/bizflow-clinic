@@ -1,0 +1,88 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+    <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#0f4c81"/>
+            <stop offset="55%" stop-color="#1677a8"/>
+            <stop offset="100%" stop-color="#0b263d"/>
+        </linearGradient>
+
+        <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity=".22"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity=".05"/>
+        </linearGradient>
+    </defs>
+
+    <rect width="1200" height="600" fill="url(#bg)"/>
+
+    <circle cx="1010" cy="90" r="210" fill="#ffffff" opacity=".035"/>
+    <circle cx="1080" cy="500" r="270" fill="#ffffff" opacity=".025"/>
+    <circle cx="120" cy="510" r="220" fill="#ffffff" opacity=".035"/>
+
+    <!-- hospital building -->
+    <rect x="650" y="135" width="390" height="330" rx="12"
+          fill="#ffffff" opacity=".13"/>
+
+    <rect x="690" y="170" width="310" height="275" rx="8"
+          fill="#ffffff" opacity=".10"/>
+
+    <!-- windows -->
+    <g fill="#dff4ff" opacity=".45">
+        <rect x="720" y="205" width="58" height="45" rx="5"/>
+        <rect x="805" y="205" width="58" height="45" rx="5"/>
+        <rect x="890" y="205" width="58" height="45" rx="5"/>
+
+        <rect x="720" y="280" width="58" height="45" rx="5"/>
+        <rect x="805" y="280" width="58" height="45" rx="5"/>
+        <rect x="890" y="280" width="58" height="45" rx="5"/>
+
+        <rect x="720" y="355" width="58" height="45" rx="5"/>
+        <rect x="805" y="355" width="58" height="45" rx="5"/>
+        <rect x="890" y="355" width="58" height="45" rx="5"/>
+    </g>
+
+    <!-- medical cross -->
+    <rect x="770" y="80" width="150" height="95" rx="18"
+          fill="url(#glass)"/>
+
+    <rect x="830" y="95" width="30" height="65" rx="6"
+          fill="#ffffff" opacity=".85"/>
+
+    <rect x="812" y="113" width="66" height="30" rx="6"
+          fill="#ffffff" opacity=".85"/>
+
+    <!-- person -->
+    <circle cx="420" cy="220" r="58" fill="#ffffff" opacity=".14"/>
+    <circle cx="420" cy="202" r="25" fill="#ffffff" opacity=".62"/>
+
+    <path d="M350 355
+             C355 280 380 250 420 250
+             C460 250 485 280 490 355
+             Z"
+          fill="#ffffff" opacity=".32"/>
+
+    <!-- medical clipboard -->
+    <rect x="285" y="315" width="115" height="150" rx="12"
+          fill="#ffffff" opacity=".13"/>
+
+    <rect x="315" y="345" width="55" height="8" rx="4"
+          fill="#ffffff" opacity=".6"/>
+
+    <rect x="315" y="370" width="42" height="8" rx="4"
+          fill="#ffffff" opacity=".35"/>
+
+    <rect x="315" y="395" width="62" height="8" rx="4"
+          fill="#ffffff" opacity=".35"/>
+
+    <!-- workflow lines -->
+    <path d="M120 150 C190 110 240 120 285 160"
+          fill="none"
+          stroke="#ffffff"
+          stroke-opacity=".18"
+          stroke-width="3"/>
+
+    <path d="M120 180 C190 140 240 150 285 190"
+          fill="none"
+          stroke="#ffffff"
+          stroke-opacity=".10"
+          stroke-width="2"/>
+</svg>
