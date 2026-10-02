@@ -1,0 +1,324 @@
+﻿{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Staff Sign In | Wub Tech Solutions</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/login.css' %}"
+    >
+</head>
+
+<body class="wt-login-page">
+
+    <main class="wt-login-shell">
+
+        <!-- LEFT BRAND PANEL -->
+        <section class="wt-login-brand">
+
+            <div class="wt-brand-content">
+
+                <a href="/" class="wt-brand">
+                    <span class="wt-brand-mark">W</span>
+
+                    <span class="wt-brand-text">
+                        <strong>Wub Tech</strong>
+                        <small>Solutions</small>
+                    </span>
+                </a>
+
+                <div class="wt-brand-message">
+
+                    <span class="wt-brand-eyebrow">
+                        BUSINESS TECHNOLOGY PLATFORM
+                    </span>
+
+                    <h1>
+                        One platform.<br>
+                        Multiple possibilities.
+                    </h1>
+
+                    <p>
+                        Secure access to the management systems
+                        built by Wub Tech Solutions for modern
+                        organizations.
+                    </p>
+
+                </div>
+
+                <div class="wt-platform-points">
+
+                    <div class="wt-platform-point">
+                        <span class="wt-point-icon">
+                            <i class="bi bi-grid-1x2-fill"></i>
+                        </span>
+
+                        <div>
+                            <strong>Connected Workspaces</strong>
+                            <span>Every department in one platform.</span>
+                        </div>
+                    </div>
+
+                    <div class="wt-platform-point">
+                        <span class="wt-point-icon">
+                            <i class="bi bi-shield-check"></i>
+                        </span>
+
+                        <div>
+                            <strong>Secure Access</strong>
+                            <span>Department-based access control.</span>
+                        </div>
+                    </div>
+
+                    <div class="wt-platform-point">
+                        <span class="wt-point-icon">
+                            <i class="bi bi-diagram-3"></i>
+                        </span>
+
+                        <div>
+                            <strong>Connected Information</strong>
+                            <span>Information moves with the workflow.</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="wt-brand-footer">
+                © {% now "Y" %} Wub Tech Solutions
+            </div>
+
+        </section>
+
+
+        <!-- RIGHT LOGIN PANEL -->
+        <section class="wt-login-panel">
+
+            <div class="wt-login-card">
+
+                <div class="wt-mobile-brand">
+                    <span class="wt-mobile-mark">W</span>
+                    <div>
+                        <strong>Wub Tech</strong>
+                        <small>Solutions</small>
+                    </div>
+                </div>
+
+
+                <div class="wt-login-heading">
+
+                    <span class="wt-login-eyebrow">
+                        STAFF PORTAL
+                    </span>
+
+                    <h2>Welcome back</h2>
+
+                    <p>
+                        Sign in to continue to your workspace.
+                    </p>
+
+                </div>
+
+
+                {% if messages %}
+                    <div class="wt-messages">
+                        {% for message in messages %}
+                            <div class="wt-message">
+                                <i class="bi bi-info-circle"></i>
+                                <span>{{ message }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+
+                {% if form.errors %}
+                    <div class="wt-message wt-message-error">
+                        <i class="bi bi-exclamation-circle"></i>
+
+                        <span>
+                            Please check your username and password
+                            and try again.
+                        </span>
+                    </div>
+                {% endif %}
+
+
+                <form
+                    method="post"
+                    action=""
+                    class="wt-login-form"
+                    autocomplete="on"
+                >
+
+                    {% csrf_token %}
+
+                    {% if request.GET.next %}
+                        <input
+                            type="hidden"
+                            name="next"
+                            value="{{ request.GET.next }}"
+                        >
+                    {% endif %}
+
+                    {% if request.GET.department %}
+                        <input
+                            type="hidden"
+                            name="department"
+                            value="{{ request.GET.department }}"
+                        >
+                    {% endif %}
+
+
+                    <div class="wt-field">
+
+                        <label for="id_username">
+                            Username
+                        </label>
+
+                        <div class="wt-input-wrapper">
+
+                            <i class="bi bi-person"></i>
+
+                            <input
+                                type="text"
+                                name="username"
+                                id="id_username"
+                                class="wt-input"
+                                placeholder="Enter your username"
+                                autocomplete="username"
+                                required
+                                autofocus
+                                value="{{ request.POST.username|default:'' }}"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="wt-field">
+
+                        <div class="wt-label-row">
+
+                            <label for="id_password">
+                                Password
+                            </label>
+
+                        </div>
+
+                        <div class="wt-input-wrapper">
+
+                            <i class="bi bi-lock"></i>
+
+                            <input
+                                type="password"
+                                name="password"
+                                id="id_password"
+                                class="wt-input"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="wt-password-toggle"
+                                id="togglePassword"
+                                aria-label="Show password"
+                            >
+                                <i class="bi bi-eye"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="wt-login-button"
+                    >
+                        <span>Sign In</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </button>
+
+                </form>
+
+
+                <div class="wt-login-security">
+
+                    <i class="bi bi-shield-lock"></i>
+
+                    <span>
+                        Your access is protected by secure
+                        department-level permissions.
+                    </span>
+
+                </div>
+
+
+                <div class="wt-login-back">
+
+                    <a href="/">
+                        <i class="bi bi-arrow-left"></i>
+                        Back to Wub Tech Solutions
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+        const togglePassword = document.getElementById("togglePassword");
+        const passwordInput = document.getElementById("id_password");
+
+        if (togglePassword && passwordInput) {
+            togglePassword.addEventListener("click", function () {
+
+                const isPassword =
+                    passwordInput.getAttribute("type") === "password";
+
+                passwordInput.setAttribute(
+                    "type",
+                    isPassword ? "text" : "password"
+                );
+
+                const icon = this.querySelector("i");
+
+                if (icon) {
+                    icon.classList.toggle("bi-eye");
+                    icon.classList.toggle("bi-eye-slash");
+                }
+
+                this.setAttribute(
+                    "aria-label",
+                    isPassword ? "Hide password" : "Show password"
+                );
+            });
+        }
+    </script>
+
+</body>
+</html>

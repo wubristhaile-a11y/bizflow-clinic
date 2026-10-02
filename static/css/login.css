@@ -1,0 +1,697 @@
+﻿/* ============================================================
+   WUB TECH SOLUTIONS
+   STAFF LOGIN
+   ============================================================ */
+
+:root {
+    --wt-login-dark: #0b1220;
+    --wt-login-dark-2: #111b2e;
+    --wt-login-accent: #2563eb;
+    --wt-login-accent-dark: #1d4ed8;
+    --wt-login-bg: #f5f7fb;
+    --wt-login-border: #e2e8f0;
+    --wt-login-text: #172033;
+    --wt-login-muted: #64748b;
+    --wt-login-white: #ffffff;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+
+body.wt-login-page {
+    min-height: 100vh;
+    background: var(--wt-login-bg);
+    color: var(--wt-login-text);
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   MAIN SHELL
+   ------------------------------------------------------------ */
+
+.wt-login-shell {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: minmax(420px, 44%) minmax(420px, 56%);
+}
+
+
+/* ------------------------------------------------------------
+   BRAND PANEL
+   ------------------------------------------------------------ */
+
+.wt-login-brand {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+    padding: 48px 56px;
+    overflow: hidden;
+    color: #ffffff;
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(37, 99, 235, 0.30),
+            transparent 36%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(59, 130, 246, 0.15),
+            transparent 35%
+        ),
+        linear-gradient(
+            145deg,
+            #07101f 0%,
+            #0b1628 48%,
+            #111d32 100%
+        );
+}
+
+
+.wt-login-brand::before {
+    content: "";
+    position: absolute;
+    width: 460px;
+    height: 460px;
+    right: -250px;
+    top: -210px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 50%;
+}
+
+
+.wt-login-brand::after {
+    content: "";
+    position: absolute;
+    width: 620px;
+    height: 620px;
+    left: -420px;
+    bottom: -390px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+}
+
+
+.wt-brand-content,
+.wt-brand-footer {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* ------------------------------------------------------------
+   BRAND
+   ------------------------------------------------------------ */
+
+.wt-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 13px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+
+.wt-brand:hover {
+    color: #ffffff;
+}
+
+
+.wt-brand-mark {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 22px;
+    font-weight: 800;
+    color: #ffffff;
+    background:
+        linear-gradient(
+            135deg,
+            #3b82f6,
+            #1d4ed8
+        );
+    box-shadow:
+        0 10px 28px rgba(37, 99, 235, 0.30);
+}
+
+
+.wt-brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.05;
+}
+
+
+.wt-brand-text strong {
+    font-size: 18px;
+    font-weight: 750;
+    letter-spacing: -0.3px;
+}
+
+
+.wt-brand-text small {
+    margin-top: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
+    opacity: 0.62;
+}
+
+
+/* ------------------------------------------------------------
+   BRAND MESSAGE
+   ------------------------------------------------------------ */
+
+.wt-brand-message {
+    max-width: 510px;
+    margin-top: 120px;
+}
+
+
+.wt-brand-eyebrow,
+.wt-login-eyebrow {
+    display: inline-block;
+    margin-bottom: 17px;
+    font-size: 10px;
+    font-weight: 750;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+
+.wt-brand-eyebrow {
+    color: #60a5fa;
+}
+
+
+.wt-brand-message h1 {
+    margin: 0;
+    font-size: clamp(38px, 4vw, 58px);
+    line-height: 1.04;
+    font-weight: 750;
+    letter-spacing: -2px;
+}
+
+
+.wt-brand-message p {
+    max-width: 470px;
+    margin: 26px 0 0;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+
+/* ------------------------------------------------------------
+   PLATFORM POINTS
+   ------------------------------------------------------------ */
+
+.wt-platform-points {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 58px;
+}
+
+
+.wt-platform-point {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+
+.wt-point-icon {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    color: #60a5fa;
+    background: rgba(255, 255, 255, 0.045);
+}
+
+
+.wt-platform-point div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+
+.wt-platform-point strong {
+    font-size: 13px;
+    font-weight: 650;
+}
+
+
+.wt-platform-point div span {
+    color: rgba(255, 255, 255, 0.48);
+    font-size: 11px;
+}
+
+
+/* ------------------------------------------------------------
+   FOOTER
+   ------------------------------------------------------------ */
+
+.wt-brand-footer {
+    color: rgba(255, 255, 255, 0.38);
+    font-size: 11px;
+}
+
+
+/* ------------------------------------------------------------
+   LOGIN PANEL
+   ------------------------------------------------------------ */
+
+.wt-login-panel {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 60px;
+    background: #ffffff;
+}
+
+
+.wt-login-card {
+    width: 100%;
+    max-width: 440px;
+}
+
+
+/* ------------------------------------------------------------
+   MOBILE BRAND
+   ------------------------------------------------------------ */
+
+.wt-mobile-brand {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 46px;
+}
+
+
+.wt-mobile-mark {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: #ffffff;
+    background: var(--wt-login-accent);
+    font-weight: 800;
+}
+
+
+.wt-mobile-brand div {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+
+
+.wt-mobile-brand strong {
+    font-size: 16px;
+}
+
+
+.wt-mobile-brand small {
+    margin-top: 4px;
+    color: var(--wt-login-muted);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+}
+
+
+/* ------------------------------------------------------------
+   LOGIN HEADING
+   ------------------------------------------------------------ */
+
+.wt-login-heading {
+    margin-bottom: 34px;
+}
+
+
+.wt-login-eyebrow {
+    margin-bottom: 12px;
+    color: var(--wt-login-accent);
+}
+
+
+.wt-login-heading h2 {
+    margin: 0;
+    color: var(--wt-login-text);
+    font-size: 34px;
+    font-weight: 750;
+    letter-spacing: -1px;
+}
+
+
+.wt-login-heading p {
+    margin: 9px 0 0;
+    color: var(--wt-login-muted);
+    font-size: 14px;
+}
+
+
+/* ------------------------------------------------------------
+   MESSAGES
+   ------------------------------------------------------------ */
+
+.wt-messages {
+    margin-bottom: 20px;
+}
+
+
+.wt-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    border: 1px solid #dbeafe;
+    border-radius: 10px;
+    color: #1e40af;
+    background: #eff6ff;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+.wt-message-error {
+    border-color: #fecaca;
+    color: #991b1b;
+    background: #fef2f2;
+}
+
+
+.wt-message i {
+    margin-top: 1px;
+    font-size: 15px;
+}
+
+
+/* ------------------------------------------------------------
+   FORM
+   ------------------------------------------------------------ */
+
+.wt-login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+
+.wt-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+.wt-field label {
+    color: #334155;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+
+.wt-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.wt-input-wrapper {
+    position: relative;
+}
+
+
+.wt-input-wrapper > i {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    z-index: 2;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 16px;
+    pointer-events: none;
+}
+
+
+.wt-input {
+    width: 100%;
+    height: 52px;
+    padding: 0 46px;
+    border: 1px solid var(--wt-login-border);
+    border-radius: 10px;
+    outline: none;
+    color: var(--wt-login-text);
+    background: #ffffff;
+    font-size: 14px;
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
+}
+
+
+.wt-input::placeholder {
+    color: #a3afbf;
+}
+
+
+.wt-input:hover {
+    border-color: #cbd5e1;
+}
+
+
+.wt-input:focus {
+    border-color: #3b82f6;
+    background: #ffffff;
+    box-shadow:
+        0 0 0 4px rgba(37, 99, 235, 0.09);
+}
+
+
+.wt-password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 13px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transform: translateY(-50%);
+    border: 0;
+    color: #94a3b8;
+    background: transparent;
+    cursor: pointer;
+}
+
+
+.wt-password-toggle:hover {
+    color: var(--wt-login-accent);
+}
+
+
+/* ------------------------------------------------------------
+   BUTTON
+   ------------------------------------------------------------ */
+
+.wt-login-button {
+    width: 100%;
+    height: 52px;
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: 0;
+    border-radius: 10px;
+    color: #ffffff;
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+    box-shadow:
+        0 10px 24px rgba(37, 99, 235, 0.20);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+.wt-login-button:hover {
+    transform: translateY(-1px);
+    box-shadow:
+        0 14px 28px rgba(37, 99, 235, 0.27);
+}
+
+
+.wt-login-button:active {
+    transform: translateY(0);
+}
+
+
+.wt-login-button i {
+    font-size: 15px;
+    transition: transform 0.18s ease;
+}
+
+
+.wt-login-button:hover i {
+    transform: translateX(3px);
+}
+
+
+/* ------------------------------------------------------------
+   SECURITY MESSAGE
+   ------------------------------------------------------------ */
+
+.wt-login-security {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin-top: 25px;
+    padding: 12px 14px;
+    border-radius: 9px;
+    color: #64748b;
+    background: #f8fafc;
+    font-size: 10px;
+    line-height: 1.55;
+}
+
+
+.wt-login-security i {
+    flex: 0 0 auto;
+    margin-top: 1px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+
+/* ------------------------------------------------------------
+   BACK LINK
+   ------------------------------------------------------------ */
+
+.wt-login-back {
+    margin-top: 28px;
+    text-align: center;
+}
+
+
+.wt-login-back a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+.wt-login-back a:hover {
+    color: var(--wt-login-accent);
+}
+
+
+.wt-login-back i {
+    font-size: 12px;
+}
+
+
+/* ------------------------------------------------------------
+   RESPONSIVE
+   ------------------------------------------------------------ */
+
+@media (max-width: 1000px) {
+
+    .wt-login-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .wt-login-brand {
+        display: none;
+    }
+
+    .wt-login-panel {
+        min-height: 100vh;
+        padding: 40px 24px;
+        background:
+            linear-gradient(
+                135deg,
+                #f8fafc,
+                #ffffff
+            );
+    }
+
+    .wt-mobile-brand {
+        display: flex;
+    }
+
+    .wt-login-card {
+        max-width: 430px;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .wt-login-panel {
+        padding: 28px 18px;
+    }
+
+    .wt-login-heading h2 {
+        font-size: 29px;
+    }
+
+    .wt-login-heading {
+        margin-bottom: 28px;
+    }
+
+    .wt-login-form {
+        gap: 19px;
+    }
+}
