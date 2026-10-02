@@ -1,162 +1,498 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
-{% block title %}Pharmacy | BizFlow Clinic{% endblock %}
+{% block title %}
+    Pharmacy | Wub Tech Solutions
+{% endblock %}
 
-{% block topbar_title %}Pharmacy{% endblock %}
+{% block topbar_title %}
+    Pharmacy
+{% endblock %}
 
 {% block content %}
 
-<div class="department-workspace">
+<div class="bf-workspace">
 
-    <div class="workspace-header">
+    <!-- =====================================================
+         PAGE HEADER
+         ===================================================== -->
+
+    <div class="bf-workspace-header">
+
         <div>
-            <div class="workspace-eyebrow">PHARMACY DEPARTMENT</div>
+            <div class="bf-workspace-eyebrow">
+                PHARMACY DEPARTMENT
+            </div>
 
-            <h1>Pharmacy Workspace</h1>
+            <h1 class="bf-workspace-title">
+                Pharmacy Workspace
+            </h1>
 
-            <p>
+            <p class="bf-workspace-subtitle">
                 Review prescriptions, dispense medication, and maintain
-                accurate stock records.
+                accurate pharmacy records.
             </p>
         </div>
 
-        <div class="workspace-user">
-            <div class="workspace-user-label">Signed in as</div>
-            <strong>{{ request.user.get_full_name|default:request.user.username }}</strong>
-        </div>
-    </div>
+        <div class="bf-workspace-user">
+            <div class="bf-workspace-user-avatar">
+                {{ request.user.username|first|upper }}
+            </div>
 
-
-    <div class="workspace-summary">
-
-        <div class="workspace-stat">
-            <span class="workspace-stat-label">Ready for dispensing</span>
-            <strong>{{ prescriptions|length }}</strong>
-        </div>
-
-        <div class="workspace-stat">
-            <span class="workspace-stat-label">Department</span>
-            <strong>Pharmacy</strong>
-        </div>
-
-        <div class="workspace-stat">
-            <span class="workspace-stat-label">Workflow</span>
-            <strong>Prescription → Dispense</strong>
-        </div>
-
-    </div>
-
-
-    <div class="workspace-panel">
-
-        <div class="panel-header">
             <div>
-                <h2>Prescriptions Ready</h2>
-                <p>Finalized prescriptions waiting for pharmacy action.</p>
-            </div>
-        </div>
-
-
-        {% if prescriptions %}
-
-            <div class="table-responsive">
-
-                <table class="table workspace-table align-middle">
-
-                    <thead>
-                        <tr>
-                            <th>Prescription</th>
-                            <th>Patient</th>
-                            <th>Doctor</th>
-                            <th>Medication</th>
-                            <th>Date</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-
-                        {% for prescription in prescriptions %}
-
-                            <tr>
-
-                                <td>
-                                    <strong>
-                                        {{ prescription.prescription_id }}
-                                    </strong>
-                                </td>
-
-                                <td>
-                                    <strong>
-                                        {{ prescription.patient.full_name }}
-                                    </strong>
-
-                                    <div class="table-subtext">
-                                        {{ prescription.patient.patient_id }}
-                                    </div>
-                                </td>
-
-                                <td>
-                                    {{ prescription.prescribed_by.get_full_name|default:prescription.prescribed_by.username }}
-                                </td>
-
-                                <td>
-                                    {% for item in prescription.items.all %}
-                                        <div>
-                                            {{ item.medication }}
-                                            <span class="text-muted">
-                                                × {{ item.quantity }}
-                                            </span>
-                                        </div>
-                                    {% endfor %}
-                                </td>
-
-                                <td>
-                                    {{ prescription.created_at|date:"d M Y" }}
-                                </td>
-
-                                <td class="text-end">
-
-                                    <span class="status-badge status-ready">
-                                        Ready
-                                    </span>
-
-                                    <a
-                                        href="{% url 'pharmacy:prescription_detail' prescription.id %}"
-                                        class="btn btn-sm btn-primary ms-2"
-                                    >
-                                        Open
-                                    </a>
-
-                                </td>
-
-                            </tr>
-
-                        {% endfor %}
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        {% else %}
-
-            <div class="empty-workspace">
-
-                <div class="empty-workspace-icon">
-                    ✓
+                <div class="bf-workspace-user-label">
+                    Signed in as
                 </div>
 
-                <h3>No prescriptions waiting</h3>
+                <div class="bf-workspace-user-name">
+                    {{ request.user.username }}
+                </div>
+            </div>
+        </div>
 
-                <p>
-                    The pharmacy queue is currently clear.
-                </p>
+    </div>
+
+
+    <!-- =====================================================
+         STAT CARDS
+         ===================================================== -->
+
+    <div class="bf-stat-grid">
+
+        <div class="bf-stat-card bf-stat-card-primary">
+
+            <div class="bf-stat-icon">
+                <i class="bi bi-prescription2"></i>
+            </div>
+
+            <div class="bf-stat-content">
+
+                <div class="bf-stat-label">
+                    Ready to Dispense
+                </div>
+
+                <div class="bf-stat-value">
+                    {{ prescriptions|length }}
+                </div>
+
+                <div class="bf-stat-meta">
+                    Finalized prescriptions awaiting pharmacy action
+                </div>
 
             </div>
 
-        {% endif %}
+        </div>
+
+
+        <div class="bf-stat-card">
+
+            <div class="bf-stat-icon">
+                <i class="bi bi-arrow-repeat"></i>
+            </div>
+
+            <div class="bf-stat-content">
+
+                <div class="bf-stat-label">
+                    Workflow
+                </div>
+
+                <div class="bf-stat-value bf-stat-value-small">
+                    Prescription
+                </div>
+
+                <div class="bf-stat-meta">
+                    Review → Dispense → Complete
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="bf-stat-card">
+
+            <div class="bf-stat-icon">
+                <i class="bi bi-box-seam"></i>
+            </div>
+
+            <div class="bf-stat-content">
+
+                <div class="bf-stat-label">
+                    Stock Control
+                </div>
+
+                <div class="bf-stat-value bf-stat-value-small">
+                    FEFO
+                </div>
+
+                <div class="bf-stat-meta">
+                    First Expiry, First Out dispensing
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         MAIN WORKSPACE
+         ===================================================== -->
+
+    <div class="bf-workspace-grid">
+
+
+        <!-- =================================================
+             PRESCRIPTION QUEUE
+             ================================================= -->
+
+        <section class="bf-panel bf-panel-wide">
+
+            <div class="bf-panel-header">
+
+                <div>
+
+                    <div class="bf-panel-title">
+                        Prescription Queue
+                    </div>
+
+                    <div class="bf-panel-subtitle">
+                        Finalized prescriptions waiting for pharmacy action.
+                    </div>
+
+                </div>
+
+                <div class="bf-panel-count">
+                    {{ prescriptions|length }}
+                </div>
+
+            </div>
+
+
+            {% if prescriptions %}
+
+                <div class="bf-table-wrap">
+
+                    <table class="bf-table">
+
+                        <thead>
+                            <tr>
+                                <th>Prescription</th>
+                                <th>Patient</th>
+                                <th>Prescribed By</th>
+                                <th>Medications</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for prescription in prescriptions %}
+
+                                <tr>
+
+                                    <td>
+                                        <span class="bf-record-id">
+                                            {{ prescription.prescription_id }}
+                                        </span>
+                                    </td>
+
+
+                                    <td>
+                                        <div class="bf-table-primary">
+                                            {{ prescription.patient }}
+                                        </div>
+
+                                        <div class="bf-table-secondary">
+                                            Patient
+                                        </div>
+                                    </td>
+
+
+                                    <td>
+                                        <div class="bf-table-primary">
+                                            {{ prescription.prescribed_by }}
+                                        </div>
+
+                                        <div class="bf-table-secondary">
+                                            Prescriber
+                                        </div>
+                                    </td>
+
+
+                                    <td>
+
+                                        <div class="bf-medication-list">
+
+                                            {% for item in prescription.items.all %}
+
+                                                <span class="bf-medication-chip">
+                                                    {{ item.medication }}
+                                                </span>
+
+                                            {% empty %}
+
+                                                <span class="bf-table-secondary">
+                                                    No medication items
+                                                </span>
+
+                                            {% endfor %}
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <span class="bf-status bf-status-ready">
+                                            <span class="bf-status-dot"></span>
+                                            Ready
+                                        </span>
+
+                                    </td>
+
+
+                                    <td class="bf-table-action">
+
+                                        <a
+                                            href="{% url 'pharmacy:prescription_detail' prescription_id=prescription.id %}"
+                                            class="bf-action-link"
+                                        >
+                                            Review
+                                            <i class="bi bi-arrow-right"></i>
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="bf-empty-state">
+
+                    <div class="bf-empty-icon">
+                        <i class="bi bi-check2-circle"></i>
+                    </div>
+
+                    <h3>
+                        No prescriptions waiting
+                    </h3>
+
+                    <p>
+                        The pharmacy queue is currently clear.
+                        Finalized prescriptions will appear here automatically.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- =================================================
+             WORKFLOW PANEL
+             ================================================= -->
+
+        <section class="bf-panel">
+
+            <div class="bf-panel-header">
+
+                <div>
+
+                    <div class="bf-panel-title">
+                        Pharmacy Workflow
+                    </div>
+
+                    <div class="bf-panel-subtitle">
+                        How prescriptions move through the department.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="bf-workflow">
+
+                <div class="bf-workflow-step">
+
+                    <div class="bf-workflow-number">
+                        1
+                    </div>
+
+                    <div>
+
+                        <div class="bf-workflow-title">
+                            Prescription Finalized
+                        </div>
+
+                        <div class="bf-workflow-text">
+                            Doctor completes the prescription.
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="bf-workflow-line"></div>
+
+
+                <div class="bf-workflow-step">
+
+                    <div class="bf-workflow-number">
+                        2
+                    </div>
+
+                    <div>
+
+                        <div class="bf-workflow-title">
+                            Pharmacy Review
+                        </div>
+
+                        <div class="bf-workflow-text">
+                            Staff review medications and availability.
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="bf-workflow-line"></div>
+
+
+                <div class="bf-workflow-step">
+
+                    <div class="bf-workflow-number">
+                        3
+                    </div>
+
+                    <div>
+
+                        <div class="bf-workflow-title">
+                            Dispense
+                        </div>
+
+                        <div class="bf-workflow-text">
+                            Medication is dispensed using FEFO stock control.
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="bf-workflow-line"></div>
+
+
+                <div class="bf-workflow-step">
+
+                    <div class="bf-workflow-number">
+                        <i class="bi bi-check-lg"></i>
+                    </div>
+
+                    <div>
+
+                        <div class="bf-workflow-title">
+                            Completed
+                        </div>
+
+                        <div class="bf-workflow-text">
+                            Stock movements are recorded automatically.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             STAFF PANEL
+             ================================================= -->
+
+        <section class="bf-panel">
+
+            <div class="bf-panel-header">
+
+                <div>
+
+                    <div class="bf-panel-title">
+                        Current Staff
+                    </div>
+
+                    <div class="bf-panel-subtitle">
+                        Active pharmacy workspace session.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="bf-staff-card">
+
+                <div class="bf-staff-avatar">
+                    {{ request.user.username|first|upper }}
+                </div>
+
+                <div>
+
+                    <div class="bf-staff-name">
+                        {{ request.user.username }}
+                    </div>
+
+                    <div class="bf-staff-role">
+                        Pharmacy Department
+                    </div>
+
+                    <div class="bf-staff-status">
+                        <span class="bf-status-dot"></span>
+                        Active session
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="bf-info-list">
+
+                <div class="bf-info-row">
+                    <span>Department</span>
+                    <strong>Pharmacy</strong>
+                </div>
+
+                <div class="bf-info-row">
+                    <span>Queue</span>
+                    <strong>
+                        {{ prescriptions|length }} ready
+                    </strong>
+                </div>
+
+                <div class="bf-info-row">
+                    <span>Stock Method</span>
+                    <strong>FEFO</strong>
+                </div>
+
+            </div>
+
+        </section>
 
     </div>
 

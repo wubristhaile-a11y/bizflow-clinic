@@ -1,62 +1,39 @@
 /* =========================================================
-   BIZFLOW DESIGN SYSTEM
+   WUB TECH SOLUTIONS / BIZFLOW
+   Shared Application Shell
    ========================================================= */
 
 :root {
-    /* Brand */
     --bf-primary: #2563eb;
     --bf-primary-dark: #1d4ed8;
-    --bf-primary-light: #eff6ff;
 
-    /* Semantic */
-    --bf-success: #16a34a;
-    --bf-success-light: #f0fdf4;
+    --bf-sidebar: #111827;
+    --bf-sidebar-hover: #1f2937;
+    --bf-sidebar-active: rgba(37, 99, 235, 0.22);
 
-    --bf-warning: #d97706;
-    --bf-warning-light: #fffbeb;
-
-    --bf-danger: #dc2626;
-    --bf-danger-light: #fef2f2;
-
-    --bf-info: #0891b2;
-    --bf-info-light: #ecfeff;
-
-    /* Neutral */
-    --bf-bg: #f5f7fb;
-    --bf-surface: #ffffff;
+    --bf-bg: #f8fafc;
+    --bf-card: #ffffff;
     --bf-border: #e5e7eb;
 
     --bf-text: #111827;
-    --bf-text-secondary: #4b5563;
     --bf-text-muted: #6b7280;
+    --bf-text-light: #94a3b8;
 
-    /* Sidebar */
+    --bf-success: #16a34a;
+    --bf-warning: #d97706;
+    --bf-danger: #dc2626;
+    --bf-info: #0284c7;
+
+    --bf-radius-sm: 8px;
+    --bf-radius: 12px;
+    --bf-radius-lg: 16px;
+
+    --bf-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+    --bf-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+    --bf-shadow-lg: 0 10px 30px rgba(15, 23, 42, 0.08);
+
     --bf-sidebar-width: 250px;
-    --bf-sidebar-bg: #111827;
-    --bf-sidebar-text: #d1d5db;
-    --bf-sidebar-active: #2563eb;
-
-    /* Layout */
     --bf-topbar-height: 64px;
-
-    /* Radius */
-    --bf-radius-sm: 6px;
-    --bf-radius-md: 10px;
-    --bf-radius-lg: 14px;
-
-    /* Shadows */
-    --bf-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --bf-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.07);
-
-    /* Typography */
-    --bf-font:
-        Inter,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Arial,
-        sans-serif;
 }
 
 
@@ -78,30 +55,29 @@ body {
 body {
     background: var(--bf-bg);
     color: var(--bf-text);
-    font-family: var(--bf-font);
-    font-size: 14px;
-    line-height: 1.5;
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
 }
 
 a {
-    color: inherit;
     text-decoration: none;
-}
-
-button,
-input,
-select,
-textarea {
-    font: inherit;
 }
 
 
 /* =========================================================
-   APP SHELL
+   APPLICATION SHELL
    ========================================================= */
 
-.bizflow-app {
+.bf-app {
     min-height: 100vh;
+    background: var(--bf-bg);
 }
 
 
@@ -109,124 +85,188 @@ textarea {
    SIDEBAR
    ========================================================= */
 
-.bizflow-sidebar {
+.bf-sidebar {
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
 
     width: var(--bf-sidebar-width);
-
-    background: var(--bf-sidebar-bg);
-    color: var(--bf-sidebar-text);
+    min-height: 100vh;
 
     display: flex;
     flex-direction: column;
 
+    background: var(--bf-sidebar);
+    color: #ffffff;
+
     z-index: 1000;
+
+    overflow: hidden;
 }
 
-.bizflow-brand {
-    height: var(--bf-topbar-height);
+
+/* =========================================================
+   SIDEBAR BRAND
+   ========================================================= */
+
+.bf-brand {
+    min-height: var(--bf-topbar-height);
 
     display: flex;
     align-items: center;
 
-    padding: 0 20px;
+    gap: 12px;
+
+    padding: 12px 18px;
 
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    flex-shrink: 0;
 }
 
-.bizflow-brand-mark {
-    width: 34px;
-    height: 34px;
+.bf-brand-mark {
+    width: 38px;
+    height: 38px;
 
-    border-radius: 9px;
+    flex: 0 0 38px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
+    border-radius: 10px;
+
     background: var(--bf-primary);
-    color: white;
+    color: #ffffff;
 
-    font-weight: 700;
-    font-size: 16px;
-
-    margin-right: 10px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.03em;
 }
 
-.bizflow-brand-name {
-    color: white;
-    font-size: 18px;
+.bf-brand-name {
+    color: #ffffff;
+
+    font-size: 0.98rem;
     font-weight: 700;
-    letter-spacing: -0.3px;
+
+    line-height: 1.2;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.bizflow-nav {
+.bf-brand-product {
+    color: var(--bf-text-light);
+
+    font-size: 0.72rem;
+    margin-top: 2px;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.bf-nav {
     flex: 1;
 
     padding: 18px 12px;
 
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
-.bizflow-nav-section {
-    margin-bottom: 22px;
+.bf-nav::-webkit-scrollbar {
+    width: 5px;
 }
 
-.bizflow-nav-label {
-    padding: 0 10px;
-    margin-bottom: 7px;
+.bf-nav::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+}
 
-    color: #6b7280;
+.bf-nav-section {
+    margin-bottom: 18px;
+}
 
-    font-size: 10px;
+.bf-nav-section:last-child {
+    margin-bottom: 0;
+}
+
+.bf-nav-label {
+    color: #64748b;
+
+    font-size: 0.68rem;
     font-weight: 700;
 
     letter-spacing: 0.08em;
     text-transform: uppercase;
+
+    padding: 8px 10px 7px;
 }
 
-.bizflow-nav-link {
+.bf-nav-link {
     display: flex;
     align-items: center;
 
     gap: 11px;
 
-    min-height: 42px;
+    width: 100%;
 
-    padding: 9px 11px;
+    color: #cbd5e1;
 
-    margin-bottom: 3px;
+    padding: 10px 12px;
+    margin: 2px 0;
 
-    border-radius: var(--bf-radius-sm);
+    border-radius: 9px;
 
-    color: var(--bf-sidebar-text);
+    font-size: 0.88rem;
+    font-weight: 500;
 
     transition:
         background 0.15s ease,
-        color 0.15s ease;
+        color 0.15s ease,
+        transform 0.15s ease;
 }
 
-.bizflow-nav-link:hover {
-    background: rgba(255, 255, 255, 0.07);
-    color: white;
+.bf-nav-link:hover {
+    background: var(--bf-sidebar-hover);
+    color: #ffffff;
 }
 
-.bizflow-nav-link.active {
+.bf-nav-link.active {
     background: var(--bf-sidebar-active);
-    color: white;
+    color: #ffffff;
+    font-weight: 600;
 }
 
-.bizflow-nav-icon {
+.bf-nav-icon {
     width: 20px;
+    min-width: 20px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
     text-align: center;
-    flex-shrink: 0;
+
+    font-size: 1rem;
+
+    opacity: 0.9;
 }
 
-.bizflow-sidebar-footer {
-    padding: 12px;
+
+/* =========================================================
+   SIDEBAR FOOTER
+   ========================================================= */
+
+.bf-sidebar-footer {
+    flex-shrink: 0;
+
+    padding: 14px;
 
     border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -236,25 +276,21 @@ textarea {
    MAIN AREA
    ========================================================= */
 
-.bizflow-main {
-    margin-left: var(--bf-sidebar-width);
+.bf-main {
     min-height: 100vh;
+
+    margin-left: var(--bf-sidebar-width);
+
+    background: var(--bf-bg);
 }
 
 
 /* =========================================================
-   TOPBAR
+   TOP BAR
    ========================================================= */
 
-.bizflow-topbar {
-    position: sticky;
-    top: 0;
-
-    height: var(--bf-topbar-height);
-
-    background: rgba(255, 255, 255, 0.96);
-
-    border-bottom: 1px solid var(--bf-border);
+.bf-topbar {
+    min-height: var(--bf-topbar-height);
 
     display: flex;
     align-items: center;
@@ -262,46 +298,60 @@ textarea {
 
     padding: 0 28px;
 
-    z-index: 900;
+    background: #ffffff;
 
-    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--bf-border);
+
+    position: sticky;
+    top: 0;
+
+    z-index: 900;
 }
 
-.bizflow-topbar-left {
+.bf-topbar-left {
     display: flex;
     align-items: center;
+
+    min-width: 0;
+}
+
+.bf-topbar-title {
+    color: var(--bf-text);
+
+    font-size: 0.95rem;
+    font-weight: 650;
+
+    line-height: 1.2;
+}
+
+.bf-topbar-right {
+    display: flex;
+    align-items: center;
+
     gap: 12px;
 }
 
-.bizflow-topbar-title {
-    font-size: 15px;
-    font-weight: 600;
-}
-
-.bizflow-topbar-right {
+.bf-user {
     display: flex;
     align-items: center;
-    gap: 16px;
+
+    gap: 10px;
 }
 
-.bizflow-user {
+.bf-avatar {
+    width: 36px;
+    height: 36px;
+
     display: flex;
     align-items: center;
-    gap: 9px;
-}
+    justify-content: center;
 
-.bizflow-avatar {
-    width: 34px;
-    height: 34px;
+    flex-shrink: 0;
 
     border-radius: 50%;
 
-    background: var(--bf-primary-light);
+    background: #eff6ff;
     color: var(--bf-primary);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
     font-size: 13px;
     font-weight: 700;
@@ -309,372 +359,16 @@ textarea {
 
 
 /* =========================================================
-   CONTENT
+   PAGE CONTENT
    ========================================================= */
 
-.bizflow-content {
+.bf-content {
+    width: 100%;
+    max-width: 1500px;
+
+    margin: 0 auto;
+
     padding: 28px;
-    max-width: 1600px;
-}
-
-.bizflow-page-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-
-    gap: 20px;
-
-    margin-bottom: 24px;
-}
-
-.bizflow-page-title {
-    margin: 0;
-
-    font-size: 25px;
-    font-weight: 700;
-
-    letter-spacing: -0.5px;
-}
-
-.bizflow-page-subtitle {
-    margin: 5px 0 0;
-
-    color: var(--bf-text-muted);
-}
-
-.bizflow-actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-
-/* =========================================================
-   BREADCRUMBS
-   ========================================================= */
-
-.bizflow-breadcrumb {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-
-    margin-bottom: 8px;
-
-    color: var(--bf-text-muted);
-
-    font-size: 12px;
-}
-
-.bizflow-breadcrumb a:hover {
-    color: var(--bf-primary);
-}
-
-.bizflow-breadcrumb-current {
-    color: var(--bf-text);
-    font-weight: 500;
-}
-
-
-/* =========================================================
-   CARDS
-   ========================================================= */
-
-.bizflow-card {
-    background: var(--bf-surface);
-
-    border: 1px solid var(--bf-border);
-
-    border-radius: var(--bf-radius-md);
-
-    box-shadow: var(--bf-shadow-sm);
-}
-
-.bizflow-card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 15px;
-
-    padding: 18px 20px;
-
-    border-bottom: 1px solid var(--bf-border);
-}
-
-.bizflow-card-title {
-    margin: 0;
-
-    font-size: 15px;
-    font-weight: 650;
-}
-
-.bizflow-card-body {
-    padding: 20px;
-}
-
-
-/* =========================================================
-   STAT CARDS
-   ========================================================= */
-
-.bizflow-stat-grid {
-    display: grid;
-
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-
-    gap: 16px;
-
-    margin-bottom: 24px;
-}
-
-.bizflow-stat {
-    padding: 18px 20px;
-
-    background: white;
-
-    border: 1px solid var(--bf-border);
-
-    border-radius: var(--bf-radius-md);
-
-    box-shadow: var(--bf-shadow-sm);
-}
-
-.bizflow-stat-label {
-    color: var(--bf-text-muted);
-
-    font-size: 12px;
-    font-weight: 500;
-}
-
-.bizflow-stat-value {
-    margin-top: 5px;
-
-    font-size: 26px;
-    font-weight: 700;
-
-    letter-spacing: -0.5px;
-}
-
-.bizflow-stat-description {
-    margin-top: 4px;
-
-    color: var(--bf-text-muted);
-
-    font-size: 12px;
-}
-
-
-/* =========================================================
-   BUTTONS
-   ========================================================= */
-
-.bizflow-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 7px;
-
-    min-height: 38px;
-
-    padding: 8px 14px;
-
-    border: 1px solid transparent;
-
-    border-radius: var(--bf-radius-sm);
-
-    font-weight: 600;
-    font-size: 13px;
-
-    cursor: pointer;
-
-    transition:
-        background 0.15s ease,
-        border-color 0.15s ease,
-        box-shadow 0.15s ease;
-}
-
-.bizflow-btn-primary {
-    background: var(--bf-primary);
-    color: white;
-}
-
-.bizflow-btn-primary:hover {
-    background: var(--bf-primary-dark);
-    color: white;
-}
-
-.bizflow-btn-secondary {
-    background: white;
-    color: var(--bf-text);
-    border-color: var(--bf-border);
-}
-
-.bizflow-btn-secondary:hover {
-    background: #f9fafb;
-}
-
-.bizflow-btn-success {
-    background: var(--bf-success);
-    color: white;
-}
-
-.bizflow-btn-danger {
-    background: var(--bf-danger);
-    color: white;
-}
-
-.bizflow-btn-sm {
-    min-height: 32px;
-    padding: 6px 10px;
-    font-size: 12px;
-}
-
-
-/* =========================================================
-   STATUS BADGES
-   ========================================================= */
-
-.bizflow-badge {
-    display: inline-flex;
-    align-items: center;
-
-    padding: 4px 8px;
-
-    border-radius: 999px;
-
-    font-size: 11px;
-    font-weight: 650;
-
-    white-space: nowrap;
-}
-
-.bizflow-badge-success {
-    background: var(--bf-success-light);
-    color: #15803d;
-}
-
-.bizflow-badge-warning {
-    background: var(--bf-warning-light);
-    color: #b45309;
-}
-
-.bizflow-badge-danger {
-    background: var(--bf-danger-light);
-    color: #b91c1c;
-}
-
-.bizflow-badge-info {
-    background: var(--bf-info-light);
-    color: #0e7490;
-}
-
-.bizflow-badge-neutral {
-    background: #f3f4f6;
-    color: #4b5563;
-}
-
-
-/* =========================================================
-   TABLES
-   ========================================================= */
-
-.bizflow-table-wrapper {
-    overflow-x: auto;
-}
-
-.bizflow-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.bizflow-table th {
-    padding: 11px 14px;
-
-    background: #f9fafb;
-
-    border-bottom: 1px solid var(--bf-border);
-
-    color: var(--bf-text-muted);
-
-    font-size: 11px;
-    font-weight: 700;
-
-    text-align: left;
-
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-}
-
-.bizflow-table td {
-    padding: 13px 14px;
-
-    border-bottom: 1px solid var(--bf-border);
-
-    vertical-align: middle;
-}
-
-.bizflow-table tbody tr:hover {
-    background: #fafafa;
-}
-
-.bizflow-table tbody tr:last-child td {
-    border-bottom: 0;
-}
-
-
-/* =========================================================
-   FORMS
-   ========================================================= */
-
-.bizflow-form-group {
-    margin-bottom: 16px;
-}
-
-.bizflow-label {
-    display: block;
-
-    margin-bottom: 6px;
-
-    color: var(--bf-text);
-
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.bizflow-input,
-.bizflow-select,
-.bizflow-textarea {
-    width: 100%;
-
-    padding: 9px 11px;
-
-    background: white;
-
-    border: 1px solid #d1d5db;
-
-    border-radius: var(--bf-radius-sm);
-
-    color: var(--bf-text);
-
-    outline: none;
-
-    transition:
-        border-color 0.15s ease,
-        box-shadow 0.15s ease;
-}
-
-.bizflow-input:focus,
-.bizflow-select:focus,
-.bizflow-textarea:focus {
-    border-color: var(--bf-primary);
-
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
-}
-
-.bizflow-textarea {
-    min-height: 110px;
-    resize: vertical;
 }
 
 
@@ -682,155 +376,183 @@ textarea {
    ALERTS
    ========================================================= */
 
-.bizflow-alert {
-    padding: 13px 15px;
+.bf-alert {
+    padding: 12px 15px;
+
+    margin-bottom: 18px;
 
     border-radius: var(--bf-radius-sm);
 
     border: 1px solid transparent;
 
-    margin-bottom: 16px;
+    font-size: 0.88rem;
 }
 
-.bizflow-alert-success {
-    background: var(--bf-success-light);
-    color: #166534;
+.bf-alert-success {
+    background: #f0fdf4;
     border-color: #bbf7d0;
+    color: #166534;
 }
 
-.bizflow-alert-warning {
-    background: var(--bf-warning-light);
-    color: #92400e;
-    border-color: #fde68a;
-}
-
-.bizflow-alert-danger {
-    background: var(--bf-danger-light);
-    color: #991b1b;
+.bf-alert-danger {
+    background: #fef2f2;
     border-color: #fecaca;
+    color: #991b1b;
 }
 
-.bizflow-alert-info {
-    background: var(--bf-info-light);
-    color: #155e75;
-    border-color: #a5f3fc;
+.bf-alert-warning {
+    background: #fffbeb;
+    border-color: #fde68a;
+    color: #92400e;
+}
+
+.bf-alert-info {
+    background: #f0f9ff;
+    border-color: #bae6fd;
+    color: #075985;
 }
 
 
 /* =========================================================
-   EMPTY STATES
+   GENERIC CARDS
    ========================================================= */
 
-.bizflow-empty {
-    padding: 45px 20px;
+.bf-card {
+    background: var(--bf-card);
 
-    text-align: center;
+    border: 1px solid var(--bf-border);
 
-    color: var(--bf-text-muted);
+    border-radius: var(--bf-radius);
+
+    box-shadow: var(--bf-shadow-sm);
+
+    overflow: hidden;
 }
 
-.bizflow-empty-icon {
-    font-size: 32px;
-    margin-bottom: 10px;
-}
+.bf-card-header {
+    padding: 16px 18px;
 
-.bizflow-empty-title {
-    margin-bottom: 4px;
-
-    color: var(--bf-text);
+    border-bottom: 1px solid var(--bf-border);
 
     font-weight: 600;
 }
 
-.bizflow-empty-description {
-    font-size: 13px;
+.bf-card-body {
+    padding: 18px;
 }
 
 
 /* =========================================================
-   PATIENT / CLINICAL ELEMENTS
+   PAGE HEADERS
    ========================================================= */
 
-.bizflow-patient-header {
+.bf-page-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
-    gap: 14px;
+    gap: 20px;
+
+    margin-bottom: 24px;
 }
 
-.bizflow-patient-avatar {
-    width: 48px;
-    height: 48px;
+.bf-page-title {
+    margin: 0;
 
-    border-radius: 12px;
+    font-size: 1.35rem;
+    font-weight: 700;
 
-    display: flex;
+    color: var(--bf-text);
+}
+
+.bf-page-subtitle {
+    margin: 5px 0 0;
+
+    color: var(--bf-text-muted);
+
+    font-size: 0.88rem;
+}
+
+
+/* =========================================================
+   TABLES
+   ========================================================= */
+
+.bf-table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+.bf-table th {
+    background: #f8fafc;
+
+    color: #64748b;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+
+    padding: 11px 13px;
+
+    border-bottom: 1px solid var(--bf-border);
+
+    text-align: left;
+}
+
+.bf-table td {
+    padding: 12px 13px;
+
+    border-bottom: 1px solid #eef2f7;
+
+    font-size: 0.86rem;
+
+    color: var(--bf-text);
+}
+
+.bf-table tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   BUTTON HELPERS
+   ========================================================= */
+
+.bf-btn {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 
-    background: var(--bf-primary-light);
-    color: var(--bf-primary);
+    gap: 7px;
 
-    font-size: 17px;
-    font-weight: 700;
+    padding: 9px 14px;
+
+    border-radius: 8px;
+
+    border: 1px solid transparent;
+
+    font-size: 0.84rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease,
+        transform 0.15s ease;
 }
 
-.bizflow-patient-name {
-    font-size: 17px;
-    font-weight: 700;
+.bf-btn-primary {
+    background: var(--bf-primary);
+    color: #ffffff;
 }
 
-.bizflow-patient-meta {
-    margin-top: 2px;
-
-    color: var(--bf-text-muted);
-
-    font-size: 12px;
-}
-
-
-/* =========================================================
-   UTILITIES
-   ========================================================= */
-
-.bizflow-grid-2 {
-    display: grid;
-
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    gap: 16px;
-}
-
-.bizflow-grid-3 {
-    display: grid;
-
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-
-    gap: 16px;
-}
-
-.bizflow-grid-4 {
-    display: grid;
-
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-
-    gap: 16px;
-}
-
-.bizflow-muted {
-    color: var(--bf-text-muted);
-}
-
-.bizflow-text-success {
-    color: var(--bf-success);
-}
-
-.bizflow-text-danger {
-    color: var(--bf-danger);
-}
-
-.bizflow-text-warning {
-    color: var(--bf-warning);
+.bf-btn-primary:hover {
+    background: var(--bf-primary-dark);
+    color: #ffffff;
 }
 
 
@@ -838,817 +560,576 @@ textarea {
    RESPONSIVE
    ========================================================= */
 
-@media (max-width: 1100px) {
+@media (max-width: 991.98px) {
 
-    .bizflow-stat-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    .bf-sidebar {
+        position: relative;
+
+        width: 100%;
+        min-height: auto;
+
+        max-height: none;
     }
 
-    .bizflow-grid-4 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    .bf-nav {
+        max-height: 420px;
     }
 
-}
-
-
-@media (max-width: 768px) {
-
-    :root {
-        --bf-sidebar-width: 0px;
-    }
-
-    .bizflow-sidebar {
-        display: none;
-    }
-
-    .bizflow-main {
+    .bf-main {
         margin-left: 0;
     }
 
-    .bizflow-content {
-        padding: 18px;
+    .bf-topbar {
+        position: relative;
+
+        padding: 0 20px;
     }
 
-    .bizflow-topbar {
-        padding: 0 18px;
+    .bf-content {
+        padding: 20px;
     }
 
-    .bizflow-page-header {
+    .bf-page-header {
         flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+
+@media (max-width: 575.98px) {
+
+    .bf-brand {
+        padding: 12px 15px;
     }
 
-    .bizflow-stat-grid,
-    .bizflow-grid-2,
-    .bizflow-grid-3,
-    .bizflow-grid-4 {
-        grid-template-columns: 1fr;
+    .bf-nav {
+        padding: 14px 10px;
     }
 
+    .bf-topbar {
+        padding: 0 15px;
+    }
+
+    .bf-content {
+        padding: 15px;
+    }
+
+    .bf-topbar-title {
+        font-size: 0.88rem;
+    }
 }
 /* =========================================================
-   Patient List
+   WUB TECH SOLUTIONS - WORKSPACE COMPONENTS
+   Shared by Clinic department workspaces
    ========================================================= */
 
-.patient-cell {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+.bf-workspace {
+    width: 100%;
 }
 
-.patient-avatar {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    background: var(--bf-primary-soft);
+.bf-workspace-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 28px;
+    margin-bottom: 26px;
+}
+
+.bf-workspace-eyebrow {
     color: var(--bf-primary);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+}
+
+.bf-workspace-title {
+    margin: 0;
+    color: var(--bf-text);
+    font-size: clamp(1.65rem, 3vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+}
+
+.bf-workspace-subtitle {
+    margin: 8px 0 0;
+    color: var(--bf-text-muted);
+    font-size: 0.92rem;
+    max-width: 720px;
+}
+
+.bf-workspace-user {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 14px;
+    gap: 10px;
+    padding: 9px 12px;
+    background: #ffffff;
+    border: 1px solid var(--bf-border);
+    border-radius: 12px;
+    box-shadow: var(--bf-shadow-sm);
     flex-shrink: 0;
 }
 
-.patient-name {
-    color: var(--bf-text);
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.patient-name:hover {
-    color: var(--bf-primary);
-}
-
-.patient-meta {
-    margin-top: 2px;
-    color: var(--bf-text-muted);
-    font-size: 12px;
-}
-
-.patient-id {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--bf-text-muted);
-    background: var(--bf-surface-soft);
-    border: 1px solid var(--bf-border);
-    border-radius: 6px;
-    padding: 4px 7px;
-}
-
-.bf-empty-state {
-    padding: 64px 24px;
-    text-align: center;
-}
-
-.bf-empty-icon {
-    width: 48px;
-    height: 48px;
-    margin: 0 auto 16px;
-    border-radius: 12px;
-    background: var(--bf-primary-soft);
-    color: var(--bf-primary);
+.bf-workspace-user-avatar {
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    font-weight: 500;
-}
-
-.bf-empty-state h3 {
-    margin-bottom: 8px;
-    font-size: 18px;
+    border-radius: 50%;
+    background: #eff6ff;
+    color: var(--bf-primary);
+    font-size: 13px;
     font-weight: 700;
-    color: var(--bf-text);
 }
 
-.bf-empty-state p {
-    margin-bottom: 20px;
+.bf-workspace-user-label {
     color: var(--bf-text-muted);
+    font-size: 0.68rem;
 }
+
+.bf-workspace-user-name {
+    color: var(--bf-text);
+    font-size: 0.82rem;
+    font-weight: 650;
+}
+
 
 /* =========================================================
-   BizFlow Clinic Landing Page
+   STAT CARDS
    ========================================================= */
 
-.clinic-home {
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-
-/* Hero */
-
-.clinic-hero {
-    min-height: 430px;
+.bf-stat-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    overflow: hidden;
-    border-radius: 22px;
-    background: #0f2742;
-    margin-bottom: 42px;
-}
-
-.clinic-hero-content {
-    padding: 58px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.clinic-eyebrow {
-    color: #78c7d4;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 16px;
-}
-
-.clinic-hero h1 {
-    color: white;
-    font-size: clamp(36px, 4vw, 58px);
-    line-height: 1.08;
-    letter-spacing: -1.5px;
-    margin: 0 0 22px;
-    font-weight: 750;
-}
-
-.clinic-hero p {
-    max-width: 560px;
-    color: rgba(255,255,255,.72);
-    font-size: 16px;
-    line-height: 1.7;
-    margin-bottom: 28px;
-}
-
-.clinic-hero-actions .btn {
-    padding: 12px 24px;
-    font-weight: 600;
-}
-
-
-/* Hero visual */
-
-.clinic-hero-visual {
-    position: relative;
-    min-height: 430px;
-    background:
-        linear-gradient(
-            135deg,
-            rgba(35, 104, 135, .85),
-            rgba(13, 36, 59, .35)
-        ),
-        url("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=85")
-        center / cover;
-}
-
-.clinic-image-placeholder {
-    position: absolute;
-    inset: 0;
-}
-
-.clinic-image-overlay {
-    position: absolute;
-    left: 32px;
-    bottom: 32px;
-    padding: 18px 20px;
-    border-radius: 14px;
-    background: rgba(8, 25, 42, .72);
-    backdrop-filter: blur(10px);
-    color: white;
-}
-
-.clinic-image-overlay span {
-    display: block;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    font-weight: 700;
-    color: #8ed5df;
-    margin-bottom: 6px;
-}
-
-.clinic-image-overlay strong {
-    font-size: 17px;
-    line-height: 1.4;
-}
-
-
-/* Department section */
-
-.clinic-section-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-    gap: 40px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
     margin-bottom: 22px;
 }
 
-.clinic-section-heading h2 {
-    margin: 6px 0 0;
-    font-size: 28px;
-    font-weight: 750;
-    letter-spacing: -.5px;
-    color: var(--bf-text);
-}
-
-.clinic-section-heading p {
-    max-width: 430px;
-    margin: 0;
-    color: var(--bf-text-muted);
-    line-height: 1.6;
-}
-
-
-/* Department cards */
-
-.department-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    margin-bottom: 42px;
-}
-
-.department-card {
-    position: relative;
+.bf-stat-card {
+    min-height: 128px;
     display: flex;
     align-items: flex-start;
     gap: 14px;
-    min-height: 170px;
-    padding: 22px;
+    padding: 19px;
+    background: #ffffff;
     border: 1px solid var(--bf-border);
-    border-radius: 16px;
-    background: white;
-    color: inherit;
-    text-decoration: none;
-    transition:
-        transform .18s ease,
-        box-shadow .18s ease,
-        border-color .18s ease;
+    border-radius: 14px;
+    box-shadow: var(--bf-shadow-sm);
 }
 
-.department-card:hover {
-    color: inherit;
-    transform: translateY(-3px);
-    border-color: rgba(25, 103, 137, .3);
-    box-shadow: 0 12px 30px rgba(20, 40, 60, .09);
+.bf-stat-card-primary {
+    border-color: rgba(37, 99, 235, 0.18);
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #f8fbff 100%
+    );
 }
 
-.department-icon {
+.bf-stat-icon {
     width: 42px;
     height: 42px;
     flex: 0 0 42px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 12px;
-    background: var(--bf-primary-soft);
+    border-radius: 11px;
+    background: #eff6ff;
     color: var(--bf-primary);
-    font-size: 15px;
-    font-weight: 800;
+    font-size: 1.1rem;
 }
 
-.department-content {
-    padding-right: 10px;
+.bf-stat-content {
+    min-width: 0;
 }
 
-.department-content h3 {
-    margin: 1px 0 7px;
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--bf-text);
-}
-
-.department-content p {
-    margin: 0;
+.bf-stat-label {
     color: var(--bf-text-muted);
-    font-size: 13px;
-    line-height: 1.55;
-}
-
-.department-arrow {
-    position: absolute;
-    right: 18px;
-    bottom: 17px;
-    color: var(--bf-primary);
-    font-size: 18px;
-}
-
-
-/* Workflow */
-
-.clinic-workflow {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
-    padding: 38px;
-    border-radius: 20px;
-    background: var(--bf-surface-soft);
-    border: 1px solid var(--bf-border);
-}
-
-.clinic-workflow h2 {
-    margin: 7px 0 12px;
-    font-size: 27px;
-    font-weight: 750;
-    color: var(--bf-text);
-}
-
-.clinic-workflow p {
-    max-width: 650px;
-    margin: 0;
-    color: var(--bf-text-muted);
-    line-height: 1.7;
-}
-
-.workflow-chain {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 9px;
-}
-
-.workflow-chain span {
-    padding: 9px 13px;
-    border-radius: 8px;
-    background: white;
-    border: 1px solid var(--bf-border);
-    color: var(--bf-text);
-    font-size: 12px;
-    font-weight: 650;
-}
-
-.workflow-chain b {
-    color: var(--bf-primary);
-}
-
-
-/* Responsive */
-
-@media (max-width: 1100px) {
-
-    .department-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-}
-
-@media (max-width: 800px) {
-
-    .clinic-hero {
-        grid-template-columns: 1fr;
-    }
-
-    .clinic-hero-content {
-        padding: 40px 30px;
-    }
-
-    .clinic-hero-visual {
-        min-height: 280px;
-    }
-
-    .clinic-section-heading {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .clinic-workflow {
-        grid-template-columns: 1fr;
-    }
-
-}
-
-@media (max-width: 600px) {
-
-    .department-grid {
-        grid-template-columns: 1fr;
-    }
-
-}
-/* =========================================================
-   STAFF LOGIN
-   ========================================================= */
-
-.login-page {
-    min-height: calc(100vh - 70px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
-}
-
-.login-card {
-    width: 100%;
-    max-width: 460px;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.10);
-}
-
-.login-brand {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 35px;
-}
-
-.login-logo {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    background: #0f3d56;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 17px;
-    letter-spacing: -0.5px;
-}
-
-.login-brand-name {
-    font-size: 18px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    color: #0f3d56;
-}
-
-.login-brand-subtitle {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    color: #64748b;
-    margin-top: 2px;
-}
-
-.login-heading {
-    margin-bottom: 28px;
-}
-
-.login-heading h1 {
-    margin: 0 0 8px;
-    font-size: 30px;
-    font-weight: 750;
-    color: #0f172a;
-}
-
-.login-heading p {
-    margin: 0;
-    color: #64748b;
-    font-size: 14px;
-}
-
-.login-form .form-group {
-    margin-bottom: 20px;
-}
-
-.login-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 13px;
-    font-weight: 650;
-    color: #334155;
-}
-
-.login-form .form-control {
-    width: 100%;
-    min-height: 48px;
-    border: 1px solid #d7dee7;
-    border-radius: 10px;
-    padding: 0 14px;
-    font-size: 14px;
-    color: #0f172a;
-    background: #ffffff;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.login-form .form-control:focus {
-    outline: none;
-    border-color: #0f766e;
-    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.10);
-}
-
-.login-button {
-    width: 100%;
-    min-height: 48px;
-    margin-top: 5px;
-    border: none;
-    border-radius: 10px;
-    background: #0f3d56;
-    color: #ffffff;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.login-button:hover {
-    background: #0b3044;
-    transform: translateY(-1px);
-}
-
-.login-footer {
-    text-align: center;
-    margin-top: 25px;
-}
-
-.login-footer a {
-    color: #0f766e;
-    text-decoration: none;
-    font-size: 13px;
+    font-size: 0.76rem;
     font-weight: 600;
+    margin-bottom: 3px;
 }
 
-.login-footer a:hover {
-    text-decoration: underline;
+.bf-stat-value {
+    color: var(--bf-text);
+    font-size: 1.65rem;
+    font-weight: 750;
+    line-height: 1.1;
 }
 
-.login-messages {
-    margin-bottom: 20px;
+.bf-stat-value-small {
+    font-size: 1.15rem;
+    margin-top: 6px;
 }
 
-.login-messages .alert {
-    margin-bottom: 8px;
-    border-radius: 10px;
-    font-size: 13px;
+.bf-stat-meta {
+    color: #94a3b8;
+    font-size: 0.72rem;
+    line-height: 1.45;
+    margin-top: 7px;
 }
 
-@media (max-width: 576px) {
-    .login-page {
-        padding: 25px 15px;
-    }
 
-    .login-card {
-        padding: 28px 22px;
-        border-radius: 16px;
-    }
-
-    .login-heading h1 {
-        font-size: 26px;
-    }
-}
 /* =========================================================
-   DEPARTMENT WORKSPACES
+   WORKSPACE GRID
    ========================================================= */
 
-.department-workspace {
-    max-width: 1500px;
-    margin: 0 auto;
-}
-
-.workspace-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 30px;
-    margin-bottom: 28px;
-}
-
-.workspace-eyebrow {
-    color: #0f766e;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    margin-bottom: 8px;
-}
-
-.workspace-header h1 {
-    margin: 0;
-    color: #0f172a;
-    font-size: 30px;
-    font-weight: 750;
-}
-
-.workspace-header p {
-    margin: 8px 0 0;
-    color: #64748b;
-    max-width: 650px;
-}
-
-.workspace-user {
-    min-width: 180px;
-    padding: 14px 18px;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-}
-
-.workspace-user-label {
-    color: #94a3b8;
-    font-size: 11px;
-    margin-bottom: 4px;
-}
-
-.workspace-user strong {
-    color: #0f172a;
-    font-size: 14px;
-}
-
-.workspace-summary {
+.bf-workspace-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
     gap: 18px;
-    margin-bottom: 24px;
+    align-items: start;
 }
 
-.workspace-stat {
+.bf-panel-wide {
+    grid-column: 1 / -1;
+}
+
+
+/* =========================================================
+   PANELS
+   ========================================================= */
+
+.bf-panel {
     background: #ffffff;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--bf-border);
     border-radius: 14px;
-    padding: 20px;
-}
-
-.workspace-stat-label {
-    display: block;
-    color: #64748b;
-    font-size: 12px;
-    margin-bottom: 8px;
-}
-
-.workspace-stat strong {
-    color: #0f172a;
-    font-size: 20px;
-}
-
-.workspace-panel {
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 16px;
+    box-shadow: var(--bf-shadow-sm);
     overflow: hidden;
 }
 
-.panel-header {
-    padding: 22px 24px;
-    border-bottom: 1px solid #eef2f7;
-}
-
-.panel-header h2 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 700;
-    color: #0f172a;
-}
-
-.panel-header p {
-    margin: 5px 0 0;
-    color: #64748b;
-    font-size: 13px;
-}
-
-.workspace-table {
-    margin: 0;
-}
-
-.workspace-table th {
-    background: #f8fafc;
-    color: #64748b;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    font-weight: 750;
-    border-bottom: 1px solid #e5e7eb;
-    padding: 14px 18px;
-}
-
-.workspace-table td {
-    padding: 16px 18px;
-    border-bottom: 1px solid #f1f5f9;
-    color: #334155;
-    font-size: 13px;
-}
-
-.workspace-table tbody tr:hover {
-    background: #f8fafc;
-}
-
-.table-subtext {
-    color: #94a3b8;
-    font-size: 11px;
-    margin-top: 3px;
-}
-
-.status-badge {
-    display: inline-flex;
-    align-items: center;
-    padding: 5px 9px;
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 700;
-}
-
-.status-ready {
-    background: #ecfdf5;
-    color: #047857;
-}
-
-.empty-workspace {
-    text-align: center;
-    padding: 65px 25px;
-}
-
-.empty-workspace-icon {
-    width: 48px;
-    height: 48px;
-    margin: 0 auto 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: #ecfdf5;
-    color: #047857;
-    font-weight: 800;
-}
-
-.empty-workspace h3 {
-    margin: 0 0 6px;
-    color: #0f172a;
-    font-size: 17px;
-}
-
-.empty-workspace p {
-    margin: 0;
-    color: #64748b;
-    font-size: 13px;
-}
-
-@media (max-width: 900px) {
-    .workspace-header {
-        flex-direction: column;
-    }
-
-    .workspace-user {
-        width: 100%;
-    }
-
-    .workspace-summary {
-        grid-template-columns: 1fr;
-    }
-}
-/* Department context on staff login */
-
-.login-department {
+.bf-panel-header {
+    min-height: 70px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
-    margin: 0 0 24px;
-    padding: 12px 14px;
-    border: 1px solid #dfe5ec;
-    border-radius: 10px;
-    background: #f7f9fb;
+    gap: 16px;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--bf-border);
 }
 
-.login-department-label {
-    font-size: 12px;
-    color: #6b7280;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+.bf-panel-title {
+    color: var(--bf-text);
+    font-size: 0.94rem;
+    font-weight: 700;
 }
 
-.login-department-name {
+.bf-panel-subtitle {
+    color: var(--bf-text-muted);
+    font-size: 0.75rem;
+    margin-top: 4px;
+}
+
+.bf-panel-count {
+    min-width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 9px;
+    border-radius: 8px;
+    background: #eff6ff;
+    color: var(--bf-primary);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   TABLE ENHANCEMENTS
+   ========================================================= */
+
+.bf-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.bf-table {
+    min-width: 850px;
+}
+
+.bf-record-id {
+    color: var(--bf-primary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.bf-table-primary {
+    color: var(--bf-text);
+    font-size: 0.82rem;
     font-weight: 600;
-    color: #1f2937;
 }
+
+.bf-table-secondary {
+    color: #94a3b8;
+    font-size: 0.68rem;
+    margin-top: 2px;
+}
+
+.bf-table-action {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.bf-action-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--bf-primary);
+    font-size: 0.78rem;
+    font-weight: 650;
+}
+
+.bf-action-link:hover {
+    color: var(--bf-primary-dark);
+}
+
+.bf-medication-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    max-width: 330px;
+}
+
+.bf-medication-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 7px;
+    border-radius: 6px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    font-size: 0.68rem;
+    line-height: 1.2;
+}
+
+.bf-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 8px;
+    border-radius: 7px;
+    font-size: 0.68rem;
+    font-weight: 650;
+}
+
+.bf-status-ready {
+    background: #f0fdf4;
+    color: #15803d;
+}
+
+.bf-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+    background: currentColor;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.bf-empty-state {
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 25px;
+}
+
+.bf-empty-icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+    border-radius: 50%;
+    background: #f0fdf4;
+    color: #16a34a;
+    font-size: 1.35rem;
+}
+
+.bf-empty-state h3 {
+    margin: 0;
+    color: var(--bf-text);
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.bf-empty-state p {
+    max-width: 440px;
+    margin: 7px 0 0;
+    color: var(--bf-text-muted);
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   WORKFLOW
+   ========================================================= */
+
+.bf-workflow {
+    padding: 18px;
+}
+
+.bf-workflow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+}
+
+.bf-workflow-number {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: #eff6ff;
+    color: var(--bf-primary);
+    font-size: 0.72rem;
+    font-weight: 750;
+}
+
+.bf-workflow-title {
+    color: var(--bf-text);
+    font-size: 0.78rem;
+    font-weight: 650;
+    line-height: 1.25;
+}
+
+.bf-workflow-text {
+    color: var(--bf-text-muted);
+    font-size: 0.69rem;
+    line-height: 1.45;
+    margin-top: 3px;
+}
+
+.bf-workflow-line {
+    width: 1px;
+    height: 20px;
+    margin: 2px 0 2px 14px;
+    background: #dbeafe;
+}
+
+
+/* =========================================================
+   STAFF
+   ========================================================= */
+
+.bf-staff-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px;
+    border-bottom: 1px solid var(--bf-border);
+}
+
+.bf-staff-avatar {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--bf-primary);
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 750;
+}
+
+.bf-staff-name {
+    color: var(--bf-text);
+    font-size: 0.86rem;
+    font-weight: 700;
+}
+
+.bf-staff-role {
+    color: var(--bf-text-muted);
+    font-size: 0.7rem;
+    margin-top: 2px;
+}
+
+.bf-staff-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #16a34a;
+    font-size: 0.67rem;
+    margin-top: 5px;
+}
+
+.bf-info-list {
+    padding: 8px 18px 14px;
+}
+
+.bf-info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 9px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 0.72rem;
+}
+
+.bf-info-row:last-child {
+    border-bottom: none;
+}
+
+.bf-info-row span {
+    color: var(--bf-text-muted);
+}
+
+.bf-info-row strong {
+    color: var(--bf-text);
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   RESPONSIVE WORKSPACE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .bf-stat-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .bf-workspace-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .bf-panel-wide {
+        grid-column: auto;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .bf-workspace-header {
+        flex-direction: column;
+    }
+
+    .bf-workspace-user {
+        width: 100%;
+    }
+
+    .bf-stat-card {
+        min-height: 110px;
+    }
+}
+
