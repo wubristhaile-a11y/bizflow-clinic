@@ -1,28 +1,28 @@
 from django.urls import path
 
 from . import views
-from .department_views import (
-    department_workspace,
-    reception_workspace,
-)
+from . import department_views
+
+
+app_name = "core"
 
 
 urlpatterns = [
     path(
         "",
-        views.clinic_home,
-        name="clinic_home",
+        views.home,
+        name="home",
     ),
 
     path(
-        "workspace/reception/",
-        reception_workspace,
+        "reception/",
+        department_views.reception_workspace,
         name="reception_workspace",
     ),
 
     path(
-        "workspace/<str:department_code>/",
-        department_workspace,
+        "departments/<str:department_code>/",
+        department_views.department_workspace,
         name="department_workspace",
     ),
 ]
