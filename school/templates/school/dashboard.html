@@ -1,0 +1,18 @@
+{% extends "school/base_school.html" %}
+{% block school_content %}
+<div class="row g-3 mb-4">
+  <div class="col-md-3"><div class="card h-100"><div class="card-body"><small class="text-muted">Students</small><div class="fs-2 fw-bold">{{ active_students }}</div></div></div></div>
+  <div class="col-md-3"><div class="card h-100"><div class="card-body"><small class="text-muted">Current enrollments</small><div class="fs-2 fw-bold">{{ active_enrollments }}</div></div></div></div>
+  <div class="col-md-3"><div class="card h-100"><div class="card-body"><small class="text-muted">Sections</small><div class="fs-2 fw-bold">{{ sections }}</div></div></div></div>
+  <div class="col-md-3"><div class="card h-100"><div class="card-body"><small class="text-muted">Unpaid invoices</small><div class="fs-2 fw-bold">{{ unpaid }}</div></div></div></div>
+</div>
+<div class="card"><div class="card-body">
+  <h5>School workflow</h5>
+  <div class="row g-3 mt-1">
+    <div class="col-md-3"><a class="btn btn-primary w-100" href="{% url 'school:student_list' %}">Student Registry</a></div>
+    <div class="col-md-3"><a class="btn btn-outline-primary w-100" href="{% url 'school:attendance' %}">Attendance</a></div>
+    <div class="col-md-3"><a class="btn btn-outline-primary w-100" href="{% url 'school:assessment_list' %}">Gradebook</a></div>
+    <div class="col-md-3"><a class="btn btn-outline-primary w-100" href="{% url 'school:invoice_list' %}">Fees & Payments</a></div>
+  </div>
+</div></div>
+{% endblock %}

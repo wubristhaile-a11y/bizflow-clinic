@@ -1,0 +1,512 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>
+        {% block title %}
+            School Management | Wub Tech Solutions
+        {% endblock %}
+    </title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+        :root {
+            --school-primary: #2563eb;
+            --school-primary-dark: #1d4ed8;
+            --school-sidebar: #0f172a;
+            --school-sidebar-hover: #1e293b;
+            --school-bg: #f8fafc;
+            --school-border: #e2e8f0;
+            --school-text: #0f172a;
+            --school-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--school-bg);
+            color: var(--school-text);
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+        }
+
+        .school-app {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* =========================================================
+           SCHOOL SIDEBAR
+           ========================================================= */
+
+        .school-sidebar {
+            width: 250px;
+            min-height: 100vh;
+            background: var(--school-sidebar);
+            color: #fff;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .school-brand {
+            padding: 22px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .school-brand-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 800;
+        }
+
+        .school-brand-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--school-primary);
+            color: #fff;
+            font-size: 1.15rem;
+        }
+
+        .school-brand-subtitle {
+            margin-top: 5px;
+            margin-left: 48px;
+            color: #94a3b8;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .school-nav {
+            flex: 1;
+            padding: 18px 12px;
+            overflow-y: auto;
+        }
+
+        .school-nav-section {
+            margin: 18px 10px 8px;
+            color: #64748b;
+            font-size: 0.68rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .school-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 13px;
+            margin-bottom: 4px;
+            border-radius: 9px;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition:
+                background 0.18s ease,
+                color 0.18s ease;
+        }
+
+        .school-nav-link i {
+            width: 20px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .school-nav-link:hover {
+            background: var(--school-sidebar-hover);
+            color: #fff;
+        }
+
+        .school-nav-link.active {
+            background: rgba(37, 99, 235, 0.2);
+            color: #fff;
+        }
+
+        .school-nav-link.active i {
+            color: #60a5fa;
+        }
+
+        .school-sidebar-footer {
+            padding: 14px 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .school-company {
+            color: #94a3b8;
+            font-size: 0.72rem;
+            line-height: 1.5;
+        }
+
+        /* =========================================================
+           SCHOOL MAIN AREA
+           ========================================================= */
+
+        .school-main {
+            min-width: 0;
+            flex: 1;
+            margin-left: 250px;
+        }
+
+        .school-topbar {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 0 28px;
+            background: #fff;
+            border-bottom: 1px solid var(--school-border);
+            position: sticky;
+            top: 0;
+            z-index: 900;
+        }
+
+        .school-page-title {
+            margin: 0;
+            font-size: 1.15rem;
+            font-weight: 750;
+        }
+
+        .school-topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .school-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .school-user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #dbeafe;
+            color: var(--school-primary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        .school-user-name {
+            font-size: 0.84rem;
+            font-weight: 700;
+        }
+
+        .school-user-role {
+            color: var(--school-muted);
+            font-size: 0.7rem;
+        }
+
+        .school-content {
+            padding: 28px;
+        }
+
+        /* =========================================================
+           COMMON SCHOOL COMPONENTS
+           ========================================================= */
+
+        .school-content .card {
+            border: 1px solid var(--school-border);
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(15, 23, 42, 0.04);
+        }
+
+        .school-content .btn-primary {
+            background: var(--school-primary);
+            border-color: var(--school-primary);
+        }
+
+        .school-content .btn-primary:hover {
+            background: var(--school-primary-dark);
+            border-color: var(--school-primary-dark);
+        }
+
+        /* =========================================================
+           MOBILE
+           ========================================================= */
+
+        @media (max-width: 900px) {
+            .school-sidebar {
+                width: 220px;
+            }
+
+            .school-main {
+                margin-left: 220px;
+            }
+
+            .school-topbar {
+                padding: 0 20px;
+            }
+
+            .school-content {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .school-sidebar {
+                width: 72px;
+            }
+
+            .school-brand {
+                padding: 16px 10px;
+            }
+
+            .school-brand-title {
+                justify-content: center;
+            }
+
+            .school-brand-text,
+            .school-brand-subtitle,
+            .school-nav-section,
+            .school-nav-link span,
+            .school-company {
+                display: none;
+            }
+
+            .school-nav-link {
+                justify-content: center;
+                padding: 12px 8px;
+            }
+
+            .school-nav-link i {
+                margin: 0;
+            }
+
+            .school-main {
+                margin-left: 72px;
+            }
+
+            .school-topbar {
+                height: 62px;
+            }
+
+            .school-user-name,
+            .school-user-role {
+                display: none;
+            }
+
+            .school-content {
+                padding: 16px;
+            }
+        }
+    </style>
+
+    {% block extra_css %}
+    {% endblock %}
+</head>
+
+<body>
+
+<div class="school-app">
+
+    <!-- =========================================================
+         SCHOOL SIDEBAR
+         ========================================================= -->
+
+    <aside class="school-sidebar">
+
+        <div class="school-brand">
+
+            <a
+                href="{% url 'school:dashboard' %}"
+                class="school-brand-title"
+            >
+                <span class="school-brand-icon">
+                    <i class="bi bi-mortarboard-fill"></i>
+                </span>
+
+                <span class="school-brand-text">
+                    School Management
+                </span>
+            </a>
+
+            <div class="school-brand-subtitle">
+                Wub Tech Solutions
+            </div>
+
+        </div>
+
+
+        <nav class="school-nav">
+
+            <div class="school-nav-section">
+                Main
+            </div>
+
+            <a
+                href="{% url 'school:dashboard' %}"
+                class="school-nav-link"
+            >
+                <i class="bi bi-grid-1x2-fill"></i>
+                <span>Dashboard</span>
+            </a>
+
+
+            <div class="school-nav-section">
+                Students
+            </div>
+
+            <a
+                href="{% url 'school:student_list' %}"
+                class="school-nav-link"
+            >
+                <i class="bi bi-people-fill"></i>
+                <span>Students</span>
+            </a>
+
+
+            <div class="school-nav-section">
+                Academics
+            </div>
+
+            <a
+                href="{% url 'school:attendance' %}"
+                class="school-nav-link"
+            >
+                <i class="bi bi-calendar-check-fill"></i>
+                <span>Attendance</span>
+            </a>
+
+            <a
+                href="{% url 'school:assessment_list' %}"
+                class="school-nav-link"
+            >
+                <i class="bi bi-journal-check"></i>
+                <span>Assessments</span>
+            </a>
+
+
+            <div class="school-nav-section">
+                Finance
+            </div>
+
+            <a
+                href="{% url 'school:invoice_list' %}"
+                class="school-nav-link"
+            >
+                <i class="bi bi-receipt-cutoff"></i>
+                <span>Fees & Invoices</span>
+            </a>
+
+        </nav>
+
+
+        <div class="school-sidebar-footer">
+            <div class="school-company">
+                Wub Tech Solutions<br>
+                School Management
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- =========================================================
+         SCHOOL MAIN
+         ========================================================= -->
+
+    <main class="school-main">
+
+        <header class="school-topbar">
+
+            <h1 class="school-page-title">
+                {% block topbar_title %}
+                    School Management
+                {% endblock %}
+            </h1>
+
+
+            <div class="school-topbar-right">
+
+                {% if request.user.is_authenticated %}
+
+                    <div class="school-user">
+
+                        <div class="school-user-avatar">
+                            {{ request.user.username|first|upper }}
+                        </div>
+
+                        <div>
+                            <div class="school-user-name">
+                                {{ request.user.get_full_name|default:request.user.username }}
+                            </div>
+
+                            <div class="school-user-role">
+                                School User
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <a
+                        href="{% url 'accounts:logout' %}"
+                        class="btn btn-sm btn-outline-secondary"
+                    >
+                        <i class="bi bi-box-arrow-right"></i>
+                        Logout
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        </header>
+
+
+        <section class="school-content">
+
+            {% block school_content %}
+            {% endblock %}
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>

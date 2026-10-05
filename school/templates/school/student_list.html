@@ -1,0 +1,13 @@
+{% extends "school/base_school.html" %}
+{% block school_content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h4>Students</h4><a class="btn btn-primary" href="{% url 'school:student_create' %}">+ Register student</a>
+</div>
+<form class="mb-3"><div class="input-group"><input name="q" value="{{ q }}" class="form-control" placeholder="Search ID, name or phone"><button class="btn btn-outline-secondary">Search</button></div></form>
+<div class="card"><div class="table-responsive"><table class="table mb-0 align-middle">
+<thead><tr><th>ID</th><th>Name</th><th>Sex</th><th>Phone</th><th>Admission</th><th></th></tr></thead>
+<tbody>{% for s in students %}
+<tr><td>{{ s.student_id }}</td><td>{{ s.full_name }}</td><td>{{ s.get_sex_display }}</td><td>{{ s.phone|default:"—" }}</td><td>{{ s.admission_date }}</td><td><a href="{% url 'school:student_detail' s.id %}" class="btn btn-sm btn-outline-primary">Open</a></td></tr>
+{% empty %}<tr><td colspan="6" class="text-center py-4 text-muted">No students found.</td></tr>{% endfor %}</tbody>
+</table></div></div>
+{% endblock %}

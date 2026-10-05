@@ -1,0 +1,5 @@
+{% extends "school/base_school.html" %}
+{% block school_content %}
+<div class="mb-4"><h3>Report Card</h3><div>{{ student.full_name }} · {{ student.student_id }}</div><div class="text-muted">{{ year.name|default:"No current academic year" }}{% if enrollment %} · {{ enrollment.section }}{% endif %}</div></div>
+<div class="card"><div class="table-responsive"><table class="table mb-0"><thead><tr><th>Term</th><th>Subject</th><th>Assessment</th><th>Mark</th><th>%</th></tr></thead><tbody>{% for r in results %}<tr><td>{{ r.assessment.term.name }}</td><td>{{ r.assessment.subject.name }}</td><td>{{ r.assessment.name }}</td><td>{{ r.mark }} / {{ r.assessment.max_mark }}</td><td>{{ r.percentage|floatformat:1 }}%</td></tr>{% empty %}<tr><td colspan="5" class="text-center text-muted py-4">No grades recorded.</td></tr>{% endfor %}</tbody></table></div></div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "school/base_school.html" %}
+{% block school_content %}
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div><div class="text-muted">{{ student.student_id }}</div><h3>{{ student.full_name }}</h3><div>{{ student.get_sex_display }} · {{ student.date_of_birth|default:"DOB not recorded" }} · {{ student.phone|default:"No phone" }}</div></div>
+  <div class="d-flex gap-2"><a class="btn btn-primary" href="{% url 'school:enrollment_create' student.id %}">Enroll</a><a class="btn btn-outline-primary" href="{% url 'school:guardian_add' student.id %}">Add guardian</a><a class="btn btn-outline-success" href="{% url 'school:invoice_create' student.id %}">New invoice</a></div>
+</div>
+<div class="row g-4">
+<div class="col-lg-7"><div class="card mb-4"><div class="card-body"><h5>Enrollments</h5>{% for e in enrollments %}<div class="border rounded p-3 mb-2"><strong>{{ e.academic_year.name }}</strong> — {{ e.section }} <span class="badge bg-success">{{ e.get_status_display }}</span>{% if e.roll_number %}<div class="small text-muted">Roll {{ e.roll_number }}</div>{% endif %}</div>{% empty %}<p class="text-muted">No enrollment yet.</p>{% endfor %}</div></div>
+<div class="card"><div class="card-body"><h5>Guardians</h5>{% for g in guardians %}<div class="border-bottom py-2"><strong>{{ g.full_name }}</strong> · {{ g.relationship }} · {{ g.phone }}</div>{% empty %}<p class="text-muted">No guardian recorded.</p>{% endfor %}</div></div></div>
+<div class="col-lg-5"><div class="card"><div class="card-body"><h5>Invoices</h5>{% for i in invoices %}<div class="border rounded p-3 mb-2"><a href="{% url 'school:invoice_detail' i.id %}"><strong>{{ i.invoice_id }}</strong></a><div>{{ i.total }} ETB · {{ i.get_status_display }}</div><div class="small text-muted">Balance {{ i.balance }} ETB</div></div>{% empty %}<p class="text-muted">No invoices.</p>{% endfor %}</div></div></div>
+</div>
+{% endblock %}

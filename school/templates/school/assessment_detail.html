@@ -1,0 +1,23 @@
+{% load school_tags %}
+{% extends "school/base_school.html" %}
+{% block school_content %}
+<div class="mb-3"><h4>{{ assessment.name }}</h4><div class="text-muted">{{ assessment.subject.name }} · {{ assessment.section }} · {{ assessment.term.name }} · Max {{ assessment.max_mark }}</div></div>
+<form method="post" class="card">
+<div class="card-body">{% csrf_token %}
+<div class="table-responsive"><table class="table align-middle">
+<thead><tr><th>Roll</th><th>Student</th><th style="width:180px">Mark</th><th>Remarks</th></tr></thead>
+<tbody>
+{% for e in enrollments %}
+{% with result=results|get_item:e.id %}
+<tr>
+<td>{{ e.roll_number|default:"—" }}</td>
+<td>{{ e.student.full_name }}</td>
+<td><input name="mark_{{ e.id }}" class="form-control" value="{{ result.mark|default_if_none:'' }}" type="number" step="0.01" min="0" max="{{ assessment.max_mark }}"></td>
+<td><input name="remarks_{{ e.id }}" class="form-control" value="{{ result.remarks|default_if_none:'' }}"></td>
+</tr>
+{% endwith %}
+{% endfor %}
+</tbody></table></div>
+<button class="btn btn-primary">Save gradebook</button>
+</div></form>
+{% endblock %}

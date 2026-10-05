@@ -214,21 +214,159 @@
         }
 
         .wt-solution-card {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+
             height: 100%;
+            min-height: 330px;
+
             background: #ffffff;
             border: 1px solid #e5e7eb;
             border-radius: 18px;
             padding: 27px;
+
             transition:
                 transform 0.2s ease,
                 box-shadow 0.2s ease,
                 border-color 0.2s ease;
         }
 
+
+        /* ================================
+        FULL CARD BACKGROUND IMAGE
+        ================================ */
+
+        .wt-solution-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            z-index: 0;
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            
+            transform: scale(1.05);
+
+            opacity: 0.48;
+            filter: blur(0.5px);
+
+            transition:
+                opacity 0.25s ease,
+                transform 0.25s ease;
+        }
+
+
+        /* ================================
+        READABILITY OVERLAY
+        ================================ */
+
+        .wt-solution-clinic::after {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(240, 253, 250, 0.70),
+                    rgba(255, 255, 255, 0.35)
+                );
+        }
+
+        .wt-solution-school::after {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(239, 246, 255, 0.68),
+                    rgba(255, 255, 255, 0.32)
+                );
+        }
+
+        .wt-solution-delivery::after {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255, 247, 237, 0.68),
+                    rgba(255, 255, 255, 0.32)
+                );
+        }
+
+        .wt-solution-business::after {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(245, 243, 255, 0.68),
+                    rgba(255, 255, 255, 0.32)
+                );
+        }
+
+
+        /* ================================
+        CLINIC
+        ================================ */
+
+        .wt-solution-card.wt-solution-clinic::before {
+            background-image:
+                url("{% static 'images/solutions/clinic.jpg' %}");
+        }
+
+
+        /* ================================
+        SCHOOL
+        ================================ */
+
+        .wt-solution-card.wt-solution-school::before {
+            background-image:
+                url("{% static 'images/solutions/school.jpg' %}");
+        }
+
+
+        /* ================================
+        DELIVERY
+        ================================ */
+
+        .wt-solution-card.wt-solution-delivery::before {
+            background-image:
+                url("{% static 'images/solutions/delivery.jpg' %}");
+        }
+
+
+        /* ================================
+        BUSINESS
+        ================================ */
+
+        .wt-solution-card.wt-solution-business::before {
+            background-image:
+                url("{% static 'images/solutions/business.jpg' %}");
+        }
+
+
+        /* ================================
+        CARD CONTENT
+        ================================ */
+
+        .wt-solution-card > * {
+            position: relative;
+            z-index: 2;
+        }
+
+
+        /* ================================
+        HOVER
+        ================================ */
+
         .wt-solution-card:hover {
             transform: translateY(-5px);
+
             border-color: #dbe5f5;
-            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.09);
+
+            box-shadow:
+                0 18px 45px rgba(15, 23, 42, 0.12);
+        }
+
+        .wt-solution-card:hover::before {
+            opacity: 0.42;
+            transform: scale(1.08);
         }
 
         .wt-solution-icon {
@@ -261,7 +399,7 @@
 
         .wt-solution-description {
             min-height: 70px;
-            color: #64748b;
+            color: #01050c;
             font-size: 0.86rem;
             line-height: 1.65;
         }
@@ -607,7 +745,7 @@
 
                     <div class="col-md-6">
 
-                        <div class="wt-solution-card">
+                        <div class="wt-solution-card wt-solution-{{ solution.background_class }}">
 
                             <div class="wt-solution-icon">
                                 <i class="bi {{ solution.icon }}"></i>
@@ -853,7 +991,7 @@
                 <div class="col-md-6 text-md-end">
 
                     <div class="small">
-                        © 2026 Wub Tech Solutions.
+                        &copy; 2026 Wub Tech Solutions.
                         All rights reserved.
                     </div>
 
