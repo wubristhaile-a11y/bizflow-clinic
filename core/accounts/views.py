@@ -54,7 +54,7 @@ def login_view(request):
 @login_required
 def post_login(request):
     """
-    Route the authenticated user to the requested department workspace.
+    Route the authenticated user to the appropriate department workspace.
     """
 
     from clinic.departments.models import DepartmentMembership
@@ -65,11 +65,10 @@ def post_login(request):
             user=request.user,
             is_active=True,
             organization__is_active=True,
-            department__is_active=True,
         )
         .select_related(
-            "organization",
             "department",
+            "organization",
         )
         .order_by("department__name")
     )
@@ -77,74 +76,48 @@ def post_login(request):
     if not memberships:
         messages.warning(
             request,
-            "Your account is not assigned to an active department.",
+            "Your account is active, but no department access has been assigned.",
         )
-
-        return render(
-            request,
-            "accounts/post_login.html",
-        )
+        return redirect("clinic:home")
 
     requested_department = request.session.pop(
         "requested_department",
-        None,
-    )
-
-    requested_department_codes = {
-        "reception": "RECEPTION",
-        "triage": "TRIAGE",
-        "doctor": "CONS",
-        "laboratory": "LAB",
-        "imaging": "IMG",
-        "pharmacy": "PHARM",
-        "billing": "BILLING",
-        "admin": "ADMIN",
-    }
-
-    if requested_department:
-        requested_department = requested_department_codes.get(
-            requested_department.lower(),
-            requested_department.upper(),
-        )
+        "",
+    ).strip().upper()
 
     selected_membership = None
 
-    # If a department was explicitly requested,
-    # find that department in the user's memberships.
     if requested_department:
-
         for membership in memberships:
-
-            if membership.department.code == requested_department:
-
+            if membership.department.code.upper() == requested_department:
                 selected_membership = membership
                 break
 
-    # If no department was requested, use the first
-    # available department.
     if selected_membership is None:
         selected_membership = memberships[0]
 
-    department_code = selected_membership.department.code
+    department_code = selected_membership.department.code.upper()
 
-    # Existing functional workspaces.
     department_routes = {
         "PHARM": "pharmacy:queue",
         "LAB": "laboratory:queue",
-        "RECEPTION": "reception_workspace",
+        "RECEPTION": "core:reception_workspace",
         "TRIAGE": "triage:queue",
         "CONS": "consultations:queue",
-        "BILLING": "billing:queue",
+        "BILLING": "billing:invoice_queue",
+        "SCHOOL": "school:dashboard",
     }
 
     route_name = department_routes.get(department_code)
 
+    # Dedicated department workspace.
     if route_name:
         return redirect(route_name)
 
-    # Departments whose full workspace is still being built.
+    # Generic workspace for departments that do not yet
+    # have their own specialized module.
     return redirect(
-        "department_workspace",
+        "core:department_workspace",
         department_code=department_code,
     )
 @login_required
@@ -160,4 +133,4 @@ def logout_view(request):
         "You have been signed out.",
     )
 
-    return redirect("clinic_home")
+    return redirect("clinic:home")

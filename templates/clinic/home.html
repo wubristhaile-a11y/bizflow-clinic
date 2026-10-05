@@ -1,11 +1,329 @@
 {% extends "base.html" %}
 
-{% block title %}BizFlow Clinic{% endblock %}
+{% block title %}Clinic Management | Wub Tech Solutions{% endblock %}
 
 {% block topbar_title %}
-    BizFlow Clinic
+    Clinic Management 
 {% endblock %}
+{% block extra_css %}
+<style>
+    .clinic-home {
+        max-width: 1500px;
+        margin: 0 auto;
+    }
 
+    .clinic-hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
+        gap: 45px;
+        align-items: center;
+        padding: 55px 20px 65px;
+    }
+
+    .clinic-hero-content {
+        max-width: 720px;
+    }
+
+    .clinic-eyebrow,
+    .page-eyebrow {
+        color: #2563eb;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+    }
+
+    .clinic-hero h1 {
+        color: #111827;
+        font-size: clamp(2.5rem, 5vw, 4.5rem);
+        line-height: 1.02;
+        letter-spacing: -0.045em;
+        font-weight: 800;
+        margin: 0 0 22px;
+    }
+
+    .clinic-hero p {
+        max-width: 650px;
+        color: #64748b;
+        font-size: 1rem;
+        line-height: 1.8;
+        margin-bottom: 28px;
+    }
+
+    .clinic-hero-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .clinic-hero-visual {
+        min-height: 390px;
+    }
+
+    .clinic-image-placeholder {
+        position: relative;
+        height: 100%;
+        min-height: 390px;
+        border-radius: 24px;
+        overflow: hidden;
+
+        background:
+            linear-gradient(
+                135deg,
+                rgba(15, 23, 42, 0.15),
+                rgba(37, 99, 235, 0.35)
+            ),
+            url("https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=85");
+
+        background-size: cover;
+        background-position: center;
+
+        box-shadow: 0 25px 60px rgba(15, 23, 42, 0.14);
+    }
+
+    .clinic-image-overlay {
+        position: absolute;
+        left: 25px;
+        right: 25px;
+        bottom: 25px;
+        padding: 22px;
+        border-radius: 16px;
+
+        background: rgba(15, 23, 42, 0.76);
+        backdrop-filter: blur(12px);
+
+        color: white;
+    }
+
+    .clinic-image-overlay span {
+        display: block;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        color: #93c5fd;
+        margin-bottom: 8px;
+    }
+
+    .clinic-image-overlay strong {
+        font-size: 1.35rem;
+        line-height: 1.3;
+    }
+
+    .clinic-departments {
+        padding: 25px 20px 65px;
+    }
+
+    .clinic-section-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 35px;
+        margin-bottom: 28px;
+    }
+
+    .clinic-section-heading h2 {
+        margin: 0;
+        color: #111827;
+        font-size: clamp(1.8rem, 3vw, 2.5rem);
+        font-weight: 800;
+        letter-spacing: -0.035em;
+    }
+
+    .clinic-section-heading > p {
+        max-width: 520px;
+        margin: 0;
+        color: #64748b;
+        line-height: 1.7;
+    }
+
+    .department-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .department-card {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 20px;
+
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+
+        background: #ffffff;
+        color: inherit;
+        text-decoration: none;
+
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease,
+            border-color 0.2s ease;
+    }
+
+    .department-card:hover {
+        color: inherit;
+        transform: translateY(-3px);
+        border-color: #bfdbfe;
+        box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+    }
+
+    .department-icon {
+        flex: 0 0 48px;
+        width: 48px;
+        height: 48px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 13px;
+        background: #eff6ff;
+        color: #2563eb;
+
+        font-size: 1rem;
+        font-weight: 800;
+    }
+
+    .department-content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .department-content h3 {
+        margin: 0 0 5px;
+        color: #111827;
+        font-size: 1rem;
+        font-weight: 750;
+    }
+
+    .department-content p {
+        margin: 0;
+        color: #64748b;
+        font-size: 0.82rem;
+        line-height: 1.55;
+    }
+
+    .department-arrow {
+        flex: 0 0 auto;
+        color: #94a3b8;
+        font-size: 1.2rem;
+        transition: transform 0.2s ease;
+    }
+
+    .department-card:hover .department-arrow {
+        transform: translateX(4px);
+        color: #2563eb;
+    }
+
+    .clinic-workflow {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(350px, 1fr);
+        align-items: center;
+        gap: 40px;
+
+        margin: 0 20px 35px;
+        padding: 40px;
+
+        border-radius: 22px;
+        background: #111827;
+        color: white;
+    }
+
+    .clinic-workflow h2 {
+        margin: 0 0 14px;
+        font-size: 2rem;
+        font-weight: 800;
+        letter-spacing: -0.035em;
+    }
+
+    .clinic-workflow p {
+        max-width: 680px;
+        margin: 0;
+        color: #94a3b8;
+        line-height: 1.75;
+    }
+
+    .workflow-chain {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .workflow-chain span {
+        padding: 8px 12px;
+
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 999px;
+
+        background: rgba(255, 255, 255, 0.05);
+        color: #e2e8f0;
+
+        font-size: 0.75rem;
+        font-weight: 700;
+    }
+
+    .workflow-chain b {
+        color: #60a5fa;
+        font-size: 1rem;
+    }
+
+    @media (max-width: 1000px) {
+        .clinic-hero {
+            grid-template-columns: 1fr;
+        }
+
+        .clinic-hero-content {
+            max-width: none;
+        }
+
+        .clinic-hero-visual,
+        .clinic-image-placeholder {
+            min-height: 320px;
+        }
+
+        .clinic-workflow {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 700px) {
+        .clinic-hero {
+            padding: 30px 10px 45px;
+        }
+
+        .clinic-departments {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .clinic-section-heading {
+            display: block;
+        }
+
+        .clinic-section-heading > p {
+            margin-top: 12px;
+        }
+
+        .department-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .clinic-workflow {
+            margin-left: 10px;
+            margin-right: 10px;
+            padding: 28px;
+        }
+
+        .clinic-workflow h2 {
+            font-size: 1.6rem;
+        }
+    }
+</style>
+{% endblock %}
 {% block content %}
 
 <div class="clinic-home">
@@ -17,7 +335,7 @@
         <div class="clinic-hero-content">
 
             <div class="clinic-eyebrow">
-                BIZFLOW CLINIC
+                WUB TECH SOLUTIONS CLINIC
             </div>
 
             <h1>
@@ -95,7 +413,7 @@
 
             <!-- Reception -->
 
-            <a href="{% url 'accounts:login' %}?department=reception"
+            <a href="{% url 'accounts:login' %}?department=RECEPTION"
                class="department-card">
 
                 <div class="department-icon">
@@ -122,7 +440,7 @@
 
             <!-- Triage -->
 
-            <a href="{% url 'accounts:login' %}?department=triage"
+            <a href="{% url 'accounts:login' %}?department=TRIAGE"
                class="department-card">
 
                 <div class="department-icon">
@@ -149,7 +467,7 @@
 
             <!-- Doctor -->
 
-            <a href="{% url 'accounts:login' %}?department=doctor"
+            <a href="{% url 'accounts:login' %}?department=CONS"
                class="department-card">
 
                 <div class="department-icon">
@@ -176,7 +494,7 @@
 
             <!-- Laboratory -->
 
-            <a href="{% url 'accounts:login' %}?department=laboratory"
+            <a href="{% url 'accounts:login' %}?department=LAB"
                class="department-card">
 
                 <div class="department-icon">
@@ -230,7 +548,7 @@
 
             <!-- Pharmacy -->
 
-            <a href="{% url 'accounts:login' %}?department=pharmacy"
+            <a href="{% url 'accounts:login' %}?department=PHARM"
                class="department-card">
 
                 <div class="department-icon">
@@ -257,7 +575,7 @@
 
             <!-- Billing -->
 
-            <a href="{% url 'accounts:login' %}?department=billing"
+            <a href="{% url 'accounts:login' %}?department=BILLING"
                class="department-card">
 
                 <div class="department-icon">
@@ -284,7 +602,7 @@
 
             <!-- Administration -->
 
-            <a href="{% url 'accounts:login' %}?department=admin"
+            <a href="{% url 'accounts:login' %}?department=ADMIN"
                class="department-card">
 
                 <div class="department-icon">
@@ -320,7 +638,7 @@
         <div>
 
             <div class="page-eyebrow">
-                BIZFLOW PRINCIPLE
+                WUB TECH SOLUTIONS PRINCIPLE
             </div>
 
             <h2>

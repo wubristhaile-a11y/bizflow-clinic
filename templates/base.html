@@ -14,7 +14,7 @@
 
     <title>
         {% block title %}
-            BizFlow
+            Wub Tech Solutions
         {% endblock %}
     </title>
 
@@ -24,7 +24,13 @@
         rel="stylesheet"
     >
 
-    <!-- BizFlow Design System -->
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Shared bizflow/Wub Tech Solutions Design System -->
     <link
         rel="stylesheet"
         href="{% static 'css/bizflow.css' %}"
@@ -38,26 +44,26 @@
 
 <body>
 
-<div class="bizflow-app">
+<div class="bf-app">
 
 
     <!-- =====================================================
          SIDEBAR
          ===================================================== -->
 
-    <aside class="bizflow-sidebar">
+    <aside class="bf-sidebar">
 
 
         <!-- Brand -->
 
-        <div class="bizflow-brand">
+        <div class="bf-brand">
 
-            <div class="bizflow-brand-mark">
-                B
+            <div class="bf-brand-mark">
+                WT
             </div>
 
-            <div class="bizflow-brand-name">
-                BizFlow
+            <div class="bf-brand-name">
+                Wub Tech Solutions
             </div>
 
         </div>
@@ -65,14 +71,14 @@
 
         <!-- Navigation -->
 
-        <nav class="bizflow-nav">
+        <nav class="bf-nav">
 
 
             <!-- MAIN -->
 
-            <div class="bizflow-nav-section">
+            <div class="bf-nav-section">
 
-                <div class="bizflow-nav-label">
+                <div class="bf-nav-label">
                     Main
                 </div>
 
@@ -80,15 +86,15 @@
                 <!-- Dashboard / Reception -->
 
                 <a
-                    href="{% url 'accounts:login' %}?department=reception"
-                    class="bizflow-nav-link
-                    {% if request.path == '/' %}
+                    href="{% url 'clinic:home' %}"
+                    class="bf-nav-link
+                    {% if request.path == '/clinic/' %}
                         active
                     {% endif %}"
                 >
 
-                    <span class="bizflow-nav-icon">
-                        ⌂
+                    <span class="bf-nav-icon">
+                        <i class="bi bi-grid"></i>
                     </span>
 
                     <span>
@@ -98,18 +104,18 @@
                 </a>
 
 
-                <!-- Patients / Reception -->
+                <!-- Patients -->
 
                 <a
                     href="{% url 'accounts:login' %}?department=reception"
-                    class="bizflow-nav-link
+                    class="bf-nav-link
                     {% if '/patients/' in request.path %}
                         active
                     {% endif %}"
                 >
 
-                    <span class="bizflow-nav-icon">
-                        👥
+                    <span class="bf-nav-icon">
+                        <i class="bi bi-people"></i>
                     </span>
 
                     <span>
@@ -119,18 +125,18 @@
                 </a>
 
 
-                <!-- Encounters / Reception -->
+                <!-- Encounters -->
 
                 <a
                     href="{% url 'accounts:login' %}?department=reception"
-                    class="bizflow-nav-link
+                    class="bf-nav-link
                     {% if '/encounters/' in request.path %}
                         active
                     {% endif %}"
                 >
 
-                    <span class="bizflow-nav-icon">
-                        🩺
+                    <span class="bf-nav-icon">
+                        <i class="bi bi-clipboard2-pulse"></i>
                     </span>
 
                     <span>
@@ -144,9 +150,9 @@
 
             <!-- CLINICAL -->
 
-            <div class="bizflow-nav-section">
+            <div class="bf-nav-section">
 
-                <div class="bizflow-nav-label">
+                <div class="bf-nav-label">
                     Clinical
                 </div>
 
@@ -155,14 +161,14 @@
 
                 <a
                     href="{% url 'accounts:login' %}?department=triage"
-                    class="bizflow-nav-link
+                    class="bf-nav-link
                     {% if '/triage/' in request.path %}
                         active
                     {% endif %}"
                 >
 
-                    <span class="bizflow-nav-icon">
-                        ♥
+                    <span class="bf-nav-icon">
+                        <i class="bi bi-heart-pulse"></i>
                     </span>
 
                     <span>
@@ -176,14 +182,14 @@
 
                 <a
                     href="{% url 'accounts:login' %}?department=doctor"
-                    class="bizflow-nav-link
+                    class="bf-nav-link
                     {% if '/consultations/' in request.path %}
                         active
                     {% endif %}"
                 >
 
-                    <span class="bizflow-nav-icon">
-                        👨‍⚕️
+                    <span class="bf-nav-icon">
+                        <i class="bi bi-person-vcard"></i>
                     </span>
 
                     <span>
@@ -197,14 +203,14 @@
 
                 <a
                     href="{% url 'accounts:login' %}?department=laboratory"
-                    class="bizflow-nav-link
+                    class="bf-nav-link
                     {% if '/laboratory/' in request.path %}
                         active
                     {% endif %}"
                 >
 
-                    <span class="bizflow-nav-icon">
-                        🧪
+                    <span class="bf-nav-icon">
+                        <i class="bi bi-eyedropper"></i>
                     </span>
 
                     <span>
@@ -218,14 +224,14 @@
 
                 <a
                     href="{% url 'accounts:login' %}?department=pharmacy"
-                    class="bizflow-nav-link
+                    class="bf-nav-link
                     {% if '/pharmacy/' in request.path %}
                         active
                     {% endif %}"
                 >
 
-                    <span class="bizflow-nav-icon">
-                        💊
+                    <span class="bf-nav-icon">
+                        <i class="bi bi-capsule"></i>
                     </span>
 
                     <span>
@@ -234,14 +240,15 @@
 
                 </a>
 
+
             </div>
 
 
             <!-- FINANCE -->
 
-            <div class="bizflow-nav-section">
+            <div class="bf-nav-section">
 
-                <div class="bizflow-nav-label">
+                <div class="bf-nav-label">
                     Finance
                 </div>
 
@@ -250,14 +257,14 @@
 
                 <a
                     href="{% url 'accounts:login' %}?department=billing"
-                    class="bizflow-nav-link
+                    class="bf-nav-link
                     {% if '/billing/' in request.path %}
                         active
                     {% endif %}"
                 >
 
-                    <span class="bizflow-nav-icon">
-                        💳
+                    <span class="bf-nav-icon">
+                        <i class="bi bi-receipt"></i>
                     </span>
 
                     <span>
@@ -267,16 +274,16 @@
                 </a>
 
 
-                <!-- Reports - not implemented yet -->
+                <!-- Reports -->
 
                 <a
                     href="#"
-                    class="bizflow-nav-link"
+                    class="bf-nav-link"
                     onclick="return false;"
                 >
 
-                    <span class="bizflow-nav-icon">
-                        📊
+                    <span class="bf-nav-icon">
+                        <i class="bi bi-bar-chart"></i>
                     </span>
 
                     <span>
@@ -290,9 +297,9 @@
 
             <!-- SYSTEM -->
 
-            <div class="bizflow-nav-section">
+            <div class="bf-nav-section">
 
-                <div class="bizflow-nav-label">
+                <div class="bf-nav-label">
                     System
                 </div>
 
@@ -301,11 +308,11 @@
 
                 <a
                     href="{% url 'accounts:login' %}?department=admin"
-                    class="bizflow-nav-link"
+                    class="bf-nav-link"
                 >
 
-                    <span class="bizflow-nav-icon">
-                        ⚙
+                    <span class="bf-nav-icon">
+                        <i class="bi bi-gear"></i>
                     </span>
 
                     <span>
@@ -323,7 +330,7 @@
 
         <!-- Sidebar footer -->
 
-        <div class="bizflow-sidebar-footer">
+        <div class="bf-sidebar-footer">
 
             <div
                 style="
@@ -333,12 +340,12 @@
                 "
             >
 
-                BizFlow Clinic
+                Wub Tech Solutions
 
                 <br>
 
                 <span style="color: #6b7280;">
-                    Clinical Management System
+                    Clinic Management System
                 </span>
 
             </div>
@@ -353,17 +360,16 @@
          MAIN
          ===================================================== -->
 
-    <main class="bizflow-main">
+    <main class="bf-main">
 
 
         <!-- TOP BAR -->
 
-        <header class="bizflow-topbar">
+        <header class="bf-topbar">
 
+            <div class="bf-topbar-left">
 
-            <div class="bizflow-topbar-left">
-
-                <div class="bizflow-topbar-title">
+                <div class="bf-topbar-title">
 
                     {% block topbar_title %}
                         Clinic Management
@@ -374,17 +380,14 @@
             </div>
 
 
-            <div class="bizflow-topbar-right">
-
+            <div class="bf-topbar-right">
 
                 {% if request.user.is_authenticated %}
 
-                    <div class="bizflow-user">
+                    <div class="bf-user">
 
-                        <div class="bizflow-avatar">
-
+                        <div class="bf-avatar">
                             {{ request.user.username|first|upper }}
-
                         </div>
 
                         <div>
@@ -413,7 +416,6 @@
 
                 {% endif %}
 
-
             </div>
 
         </header>
@@ -423,7 +425,7 @@
              PAGE CONTENT
              ================================================= -->
 
-        <div class="bizflow-content">
+        <div class="bf-content">
 
 
             <!-- Django messages -->
@@ -434,15 +436,15 @@
 
                     <div
                         class="
-                            bizflow-alert
+                            bf-alert
                             {% if message.tags == 'success' %}
-                                bizflow-alert-success
+                                bf-alert-success
                             {% elif message.tags == 'error' %}
-                                bizflow-alert-danger
+                                bf-alert-danger
                             {% elif message.tags == 'warning' %}
-                                bizflow-alert-warning
+                                bf-alert-warning
                             {% else %}
-                                bizflow-alert-info
+                                bf-alert-info
                             {% endif %}
                         "
                     >

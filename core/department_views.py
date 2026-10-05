@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.http import HttpResponseForbidden
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.utils import timezone
 
 from clinic.departments.models import DepartmentMembership
@@ -11,10 +11,27 @@ from core.department_access import department_required
 
 @login_required
 def department_workspace(request, department_code):
+    
+    department_code = department_code.upper()
+
+    specialized_routes = {
+        "PHARM": "pharmacy:queue",
+        "LAB": "laboratory:queue",
+        "CONS": "consultations:queue",
+        "RECEPTION": "core:reception_workspace",
+        "TRIAGE": "triage:queue",
+        "BILLING": "billing:invoice_queue",
+        "SCHOOL": "school:dashboard",
+    }
+
+    route_name = specialized_routes.get(department_code)
+
+    if route_name:
+        return redirect(route_name)
+        
     """
     Generic department workspace.
     """
-
     membership = (
         DepartmentMembership.objects
         .filter(
